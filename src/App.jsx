@@ -5,6 +5,7 @@ import Posts from "./components/pages/Posts";
 import logo from "./images/logo.png";
 import SinglePost from "./components/pages/SinglePost";
 import SignUp from "./components/pages/SignUp";
+import LogIn from "./components/pages/LogIn";
 function App() {
     return (
         <>
@@ -23,6 +24,10 @@ function App() {
                     </li>
                     <li>
                         {" "}
+                        <NavLink to="/auth/log-in">Log in</NavLink>
+                    </li>
+                    <li>
+                        {" "}
                         <NavLink to="/auth/sign-up">Sign Up</NavLink>
                     </li>
                 </menu>
@@ -33,6 +38,7 @@ function App() {
                 <Route path="/posts" element={<Posts />} />
                 <Route path="/posts/:id" element={<SinglePost />} />
                 <Route path="/auth/sign-up" element={<SignUp />} />
+                <Route path="/auth/log-in" element={<LogIn />} />
             </Routes>
         </>
     );

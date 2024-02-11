@@ -1,14 +1,15 @@
 import { useState } from "react";
 import axios from "axios";
 const { VITE_URL_API } = import.meta.env;
+import { useNavigate } from "react-router-dom";
 
-const SinglePost = () => {
+const SignUp = () => {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState();
     const [succefullMsg, setSuccefullMsg] = useState("");
-
+    const navigate = useNavigate();
     const handleSubmit = (e) => {
         e.preventDefault();
         axios
@@ -23,6 +24,7 @@ const SinglePost = () => {
                 setUsername("");
                 setEmail("");
                 setPassword("");
+                navigate("/auth/log-in");
             })
             .catch((error) => {
                 console.error(error);
@@ -81,4 +83,4 @@ const SinglePost = () => {
     );
 };
 
-export default SinglePost;
+export default SignUp;
