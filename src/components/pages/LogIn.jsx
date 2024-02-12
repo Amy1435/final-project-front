@@ -40,11 +40,11 @@ const LogIn = () => {
     };
     return (
         <>
-            <div>
-                <div>
-                    <h1>Log in</h1>
-                </div>
+            <div className="log-in form">
                 <form onSubmit={handleSubmit}>
+                    <div>
+                        <h1>Log in</h1>
+                    </div>
                     <div>
                         <span>Email</span>
                         <input

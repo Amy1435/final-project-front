@@ -7,9 +7,14 @@ const SignUp = () => {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [profileImage, setProfileImage] = useState("");
+    const [city, setCity] = useState("");
+    const [age, setAge] = useState("");
+    const [bio, setBio] = useState("");
     const [error, setError] = useState();
     const [succefullMsg, setSuccefullMsg] = useState("");
     const navigate = useNavigate();
+
     const handleSubmit = (e) => {
         e.preventDefault();
         axios
@@ -17,13 +22,21 @@ const SignUp = () => {
                 username: username,
                 email: email,
                 password: password,
+                profileImage: profileImage,
+                city: city,
+                age: age,
+                bio: bio,
             })
             .then((res) => {
-                setSuccefullMsg("Sign up successful, go to log-in page");
+                setSuccefullMsg("Sign up successful");
                 console.log(res.data);
                 setUsername("");
                 setEmail("");
                 setPassword("");
+                setProfileImage("");
+                setCity("");
+                setAge("");
+                setBio("");
                 navigate("/auth/log-in");
             })
             .catch((error) => {
@@ -35,44 +48,80 @@ const SignUp = () => {
     };
     return (
         <>
-            <div>
-                <div>
-                    <h1>Sign Up</h1>
-                </div>
+            <div className="sign-up form">
                 <form onSubmit={handleSubmit}>
                     <div>
-                        <span>Username</span>
-                        <input
-                            type="text"
-                            required
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
+                        <h1>Sign Up</h1>
                     </div>
                     <div>
-                        <span>Email</span>
-                        <input
-                            type="email"
-                            required
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
+                        <div>
+                            <span>Username</span>
+                            <input
+                                type="text"
+                                required
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                            />
+                        </div>
+                        <div>
+                            <span>Email</span>
+                            <input
+                                type="email"
+                                required
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                        </div>
+                        <div>
+                            <span>Password</span>
+                            <input
+                                type="password"
+                                required
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                        </div>
+                        <div>
+                            <span>Profile image</span>
+                            <input
+                                type="text"
+                                required
+                                value={profileImage}
+                                onChange={(e) =>
+                                    setProfileImage(e.target.value)
+                                }
+                            />
+                        </div>
+                        <div>
+                            <span>Which city are you from?</span>
+                            <input
+                                type="text"
+                                required
+                                value={city}
+                                onChange={(e) => setCity(e.target.value)}
+                            />
+                        </div>
+                        <div>
+                            <span>How old are you?</span>
+                            <input
+                                type="number"
+                                required
+                                min="18"
+                                max="100"
+                                value={age}
+                                onChange={(e) => setAge(e.target.value)}
+                            />
+                        </div>
+                        <div>
+                            <span>Bio</span>
+                            <textarea
+                                required
+                                value={bio}
+                                onChange={(e) => setBio(e.target.value)}
+                            />
+                        </div>
                     </div>
-                    <div>
-                        <span>Password</span>
-                        <input
-                            type="password"
-                            required
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                    </div>
-                    <button
-                        type="submit"
-                        onClick={() => console.log(username, password, email)}
-                    >
-                        Sign Up
-                    </button>
+                    <button>Sign Up</button>
 
                     {(error || succefullMsg) && (
                         <div>{error ? error.response.data : succefullMsg}</div>

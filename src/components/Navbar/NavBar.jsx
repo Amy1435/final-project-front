@@ -1,7 +1,7 @@
 import { NavLink, Link } from "react-router-dom";
-import logo from ".../images/logo.png";
+import logo from "../../images/logo.png";
 import { useContext } from "react";
-import { Context } from "./context/UserContext";
+import { Context } from "../../context/UserContext";
 
 const NavBar = () => {
     const { user, dispatch } = useContext(Context);

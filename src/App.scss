@@ -31,6 +31,11 @@ nav {
                 text-decoration: none;
                 color: inherit;
                 font-size: 1.3rem;
+
+                &.active {
+                    color: #de2b52;
+                    border-bottom: 2px solid #de2b52;
+                }
             }
         }
     }
@@ -42,13 +47,21 @@ nav {
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin: 2rem;
+        margin: 3rem;
         gap: 2rem;
         div {
             text-align: center;
             width: 700px;
         }
     }
+
+    .search-filter {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
     .posts-container {
         margin: 2rem;
         display: grid;
@@ -62,17 +75,37 @@ nav {
 .post {
     display: flex;
     flex-direction: column;
-    padding: 1rem;
+    border-radius: 1.5rem;
     gap: 0.5rem;
-    border: 0.3rem solid red;
+    border: 0.2rem solid #de2b52;
+    .datails-container {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 1rem;
+    }
     figure {
-        width: 450px;
         height: 250px;
         overflow: hidden;
+        border-radius: 1.5rem 1.5rem 0 0;
         img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+    }
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+    .details {
+        font-size: 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+        .city {
+            color: #de2b52;
+            font-weight: 600;
         }
     }
     .post-write {
@@ -91,4 +124,45 @@ nav {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+}
+
+//FORM SIGN-UP
+.form {
+    display: flex;
+    justify-content: center;
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 2rem 0 2rem 0;
+        margin: 2rem 0 2rem 0;
+        border: 0.2rem solid #de2b52;
+        border-radius: 1rem;
+        width: 500px;
+        h1 {
+            color: #de2b52;
+        }
+        span {
+            font-weight: 600;
+            color: #705555;
+        }
+        button {
+            width: 80px;
+            background-color: #de2b52;
+            color: white;
+            border: none;
+            padding: 0.5rem;
+            font-size: 16px;
+            border-radius: 0.6rem;
+        }
+        div {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            input {
+                width: 200px;
+            }
+        }
+    }
 }
