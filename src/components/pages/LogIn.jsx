@@ -23,8 +23,7 @@ const LogIn = () => {
                     password: password,
                 })
                 .then((res) => {
-                    const user = res.data.user;
-                    console.log(user);
+                    const user = res.data;
 
                     dispatch({ type: "LOGIN", payload: user });
 
@@ -32,13 +31,13 @@ const LogIn = () => {
                 })
                 .catch((error) => {
                     console.log(error);
-                    setError("Invalid password or email. Please try again.");
+                    setError(error);
                 });
         } catch (error) {
-            console.error("An error occurred during login:", error);
+            console.log(error);
+            setError(error);
         }
     };
-
     return (
         <>
             <div>
@@ -66,7 +65,7 @@ const LogIn = () => {
                     </div>
                     <button type="submite">Log in</button>
 
-                    {error && <div>{error}</div>}
+                    {error && <div>{error.response.data}</div>}
                 </form>
             </div>
         </>
