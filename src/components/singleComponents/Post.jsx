@@ -28,7 +28,10 @@ const Post = ({ post }) => {
                                 <span className="city">{post.city}</span>
                             </div>
                             <div>
-                                <span>{post.username} from </span>
+                                <span>
+                                    {post.user.username} from{" "}
+                                    {post.user.from_city}{" "}
+                                </span>
                             </div>
                         </div>
                     </div>

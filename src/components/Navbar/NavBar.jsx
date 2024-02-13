@@ -26,6 +26,10 @@ const NavBar = () => {
                             </li>
                             <li>
                                 {" "}
+                                <NavLink to="/users">Users</NavLink>
+                            </li>
+                            <li>
+                                {" "}
                                 <NavLink to="/auth/log-in">Log in</NavLink>
                             </li>
                             <li>
@@ -43,9 +47,17 @@ const NavBar = () => {
                             </li>
                             <li>
                                 {" "}
-                                <NavLink to="/user-posts">
+                                <NavLink to="/users">Users</NavLink>
+                            </li>
+                            <li>
+                                {" "}
+                                <NavLink to="/user/posts">
                                     Your experiences
                                 </NavLink>
+                            </li>
+                            <li>
+                                {" "}
+                                <NavLink to="/user/settings">Settings</NavLink>
                             </li>
                             <li>
                                 {" "}

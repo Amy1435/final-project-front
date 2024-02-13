@@ -1,18 +1,18 @@
 const { VITE_URL_API } = import.meta.env;
-import Post from "../singleComponents/Post";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import User from "../singleComponents/User";
 
-const Posts = () => {
-    const [posts, setPosts] = useState();
+const Users = () => {
+    const [users, setUsers] = useState();
     const [error, setError] = useState();
 
     useEffect(() => {
         axios
-            .get(`${VITE_URL_API}/posts`)
-            .then((response) => {
-                console.log(response.data);
-                setPosts(response.data);
+            .get(`${VITE_URL_API}/users`)
+            .then((res) => {
+                console.log(res.data);
+                setUsers(res.data);
             })
             .catch((error) => {
                 console.log(error);
@@ -24,11 +24,11 @@ const Posts = () => {
         <div className="page data">
             {error && <div>{error}</div>}
 
-            {!error && posts && (
+            {!error && users && (
                 <>
                     <div className="title-text">
                         <div>
-                            <h1>Post</h1>
+                            <h1>Travelers</h1>
                             <div>
                                 <p>
                                     Lorem Ipsum is simply dummy text of the
@@ -52,10 +52,10 @@ const Posts = () => {
                             <button>Search</button>
                         </div>
                     </div>
-                    <div className="data-container">
-                        {posts.map((post) => (
-                            <div key={post._id}>
-                                <Post post={post} />
+                    <div className="data-container users">
+                        {users.map((user) => (
+                            <div key={user._id}>
+                                <User user={user} />
                             </div>
                         ))}
                     </div>
@@ -65,4 +65,4 @@ const Posts = () => {
     );
 };
 
-export default Posts;
+export default Users;

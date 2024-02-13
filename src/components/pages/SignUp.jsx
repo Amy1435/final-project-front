@@ -22,8 +22,8 @@ const SignUp = () => {
                 username: username,
                 email: email,
                 password: password,
-                profileImage: profileImage,
-                city: city,
+                profile_img: profileImage,
+                from_city: city,
                 age: age,
                 bio: bio,
             })

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import dayjs from "dayjs";
 const { VITE_URL_API } = import.meta.env;
 
@@ -8,12 +8,12 @@ const SinglePost = () => {
     const [post, setPost] = useState({});
     const [error, setError] = useState();
     const { id } = useParams();
-    console.log(id);
     useEffect(() => {
         axios
             .get(`${VITE_URL_API}/posts/${id}`)
-            .then((response) => {
-                setPost(response.data);
+            .then((res) => {
+                console.log(res.data);
+                setPost(res.data);
             })
             .catch((error) => {
                 console.log(error);
@@ -27,18 +27,25 @@ const SinglePost = () => {
 
             {!error && post && (
                 <>
-                    <div className="post-container">
+                    <div className="single-data-container">
                         <figure>
                             <img src={post.img} alt="" />
                         </figure>
-                        <span>{post.title}</span>
+                        <span>Title: {post.title}</span>
 
-                        <span>{post.city}</span>
-                        <span>{post.username}</span>
+                        <span>Travel City: {post.city}</span>
+
                         <span>
+                            User:{" "}
+                            <Link to={`/users/${post.user?._id}`}>
+                                {post.user?.username}
+                            </Link>
+                        </span>
+                        <span>
+                            Created :{" "}
                             {dayjs(post.createdAt).format("DD/MM/YYYY")}
                         </span>
-                        <span>{post.post}</span>
+                        <span>Post:{post.post}</span>
                     </div>
                 </>
             )}

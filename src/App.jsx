@@ -9,6 +9,9 @@ import { Context } from "./context/UserContext";
 import CreatePost from "./components/pages/CreatePost";
 import PageNotFound from "./components/pages/PageNotFound";
 import NavBar from "./components/Navbar/NavBar";
+import Users from "./components/pages/Users";
+import SingleUser from "./components/pages/SingleUser";
+import UserSettings from "./components/pages/UserSettings";
 
 function App() {
     const { user } = useContext(Context);
@@ -18,8 +21,14 @@ function App() {
             <Routes>
                 <Route path="/posts" element={<Posts />} />
                 <Route path="/posts/:id" element={<SinglePost />} />
+                <Route path="/users" element={<Users />} />
+                <Route path="/users/:id" element={<SingleUser />} />
                 <Route
-                    path="/user-posts"
+                    path="/user/settings"
+                    element={user ? <UserSettings /> : <LogIn />}
+                />
+                <Route
+                    path="/user/posts"
                     element={user ? <CreatePost /> : <LogIn />}
                 />
                 <Route

@@ -8,6 +8,7 @@ img {
     box-sizing: border-box;
 }
 
+/////////////////////////////////////////
 //NAVBAR
 nav {
     display: flex;
@@ -41,28 +42,16 @@ nav {
     }
 }
 
-//POSTS PAGE
-.posts {
-    .title-text {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin: 3rem;
-        gap: 2rem;
-        div {
-            text-align: center;
-            width: 700px;
-        }
-    }
-
+//////////////////////////////////////////////////
+//POSTS/USERS PAGE
+.data {
     .search-filter {
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 0.5rem;
     }
-
-    .posts-container {
+    .data-container {
         margin: 2rem;
         display: grid;
         justify-content: center;
@@ -71,6 +60,18 @@ nav {
     }
 }
 
+.title-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 3rem;
+    gap: 2rem;
+    div {
+        text-align: center;
+        width: 700px;
+    }
+}
+/////////////////////////////////////
 //POST COMPONENT
 .post {
     display: flex;
@@ -118,14 +119,76 @@ nav {
     }
 }
 
-//SINGLE POST
+//SINGLE POST PAGE
 
-.post-container {
+.single-data-container {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
 }
 
+/////////////////////////////////////////////
+/// USER COMPONENT
+.data {
+    .users {
+        grid-template-columns: repeat(4, 250px);
+    }
+}
+.user {
+    display: flex;
+    flex-direction: column;
+    border-radius: 1.5rem;
+    gap: 0.5rem;
+    border: 0.2rem solid #de2b52;
+    figure {
+        height: 250px;
+        overflow: hidden;
+        border-radius: 1.5rem 1.5rem 0 0;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+    .datails-container {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 1rem;
+        > span:first-child {
+            font-size: 20px;
+            font-weight: 600;
+        }
+    }
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+    .details {
+        font-size: 14px;
+        display: flex;
+        gap: 0.3rem;
+        .city {
+            color: #de2b52;
+            font-weight: 600;
+        }
+    }
+}
+//SINGLE POST PAGE
+
+.single-data-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+//////////////////////////////////////////
+/// USER SETTINGS
+.user-settings {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
 //FORM SIGN-UP
 .form {
     display: flex;

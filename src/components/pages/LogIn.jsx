@@ -27,7 +27,7 @@ const LogIn = () => {
 
                     dispatch({ type: "LOGIN", payload: user });
 
-                    navigate("/");
+                    navigate("/posts");
                 })
                 .catch((error) => {
                     console.log(error);
