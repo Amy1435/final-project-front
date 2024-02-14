@@ -121,7 +121,7 @@ const SignUp = () => {
                             />
                         </div>
                     </div>
-                    <button>Sign Up</button>
+                    <button type="submit">Sign Up</button>
 
                     {(error || succefullMsg) && (
                         <div>{error ? error.response.data : succefullMsg}</div>

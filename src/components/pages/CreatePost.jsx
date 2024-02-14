@@ -3,6 +3,10 @@ import axios from "axios";
 const { VITE_URL_API } = import.meta.env;
 import { useContext } from "react";
 import { Context } from "../../context/UserContext";
+import { useEffect } from "react";
+import Post from "../singleComponents/Post";
+import PostModalDelete from "../Modals/PostDeleteModal";
+import PostModal from "../Modals/PostEditModal";
 
 const CreatePost = () => {
     const { user } = useContext(Context);
@@ -13,6 +17,34 @@ const CreatePost = () => {
     const [post, setPost] = useState("");
     const [error, setError] = useState();
     const [succefullMsg, setSuccefullMsg] = useState("");
+    const [userPosts, setUserPosts] = useState([]);
+    const [modalEditOpen, setModalEditOpen] = useState(false);
+    const [modalDeleteOpen, setModalDeleteOpen] = useState(false);
+
+    const id = user._id;
+
+    //get user posts
+    useEffect(() => {
+        axios
+            .get(`${VITE_URL_API}/posts?user=${id}`)
+            .then((response) => {
+                console.log(response.data);
+                setUserPosts(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+                setError(true);
+            });
+    }, [id]);
+
+    //open modal to edit the user
+    const handleModalEdit = () => {
+        setModalEditOpen(true);
+    };
+    //open modal to delete the user
+    const handleModalDelete = () => {
+        setModalDeleteOpen(true);
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -110,9 +142,58 @@ const CreatePost = () => {
                     <button>Add</button>
 
                     {(error || succefullMsg) && (
-                        <div>{error ? error.response.data : succefullMsg}</div>
+                        <div>
+                            {error ? error.response.data.message : succefullMsg}
+                        </div>
                     )}
                 </form>
+            </div>
+
+            <div className="user-posts">
+                <h2>Your experiences</h2>
+                <div className="data">
+                    <div className="data-container">
+                        {/* scrivi qualcosa quando gli userPosts non ci sono */}
+                        {userPosts.map((post) => (
+                            <>
+                                <div key={post._id}>
+                                    <Post post={post} />
+                                    <div className="btn-container">
+                                        <button
+                                            onClick={handleModalEdit}
+                                            className="btn"
+                                        >
+                                            Edit
+                                        </button>
+                                        <button
+                                            className="btn"
+                                            onClick={handleModalDelete}
+                                        >
+                                            Delete
+                                        </button>
+                                    </div>
+                                    {modalDeleteOpen && (
+                                        <PostModalDelete
+                                            modalClose={() => {
+                                                setModalDeleteOpen(false);
+                                            }}
+                                            postId={post._id}
+                                        />
+                                    )}
+                                    {modalEditOpen && (
+                                        <PostModal
+                                            modalClose={() => {
+                                                setModalEditOpen(false);
+                                            }}
+                                            postData={post}
+                                            setUserPosts={setUserPosts}
+                                        />
+                                    )}
+                                </div>
+                            </>
+                        ))}
+                    </div>
+                </div>
             </div>
         </>
     );
