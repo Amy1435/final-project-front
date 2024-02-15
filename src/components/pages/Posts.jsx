@@ -4,15 +4,21 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 const Posts = () => {
-    const [posts, setPosts] = useState();
-    const [error, setError] = useState();
+    const [posts, setPosts] = useState([]);
+    const [error, setError] = useState("");
+
+    //search by city
+    const [city, setCity] = useState("");
+    //reset
+    const [reset, setReset] = useState([]);
 
     useEffect(() => {
         axios
             .get(`${VITE_URL_API}/posts`)
-            .then((response) => {
-                console.log(response.data);
-                setPosts(response.data);
+            .then((res) => {
+                console.log(res.data);
+                setPosts(res.data);
+                setReset(res.data);
             })
             .catch((error) => {
                 console.log(error);
@@ -20,6 +26,18 @@ const Posts = () => {
             });
     }, []);
 
+    //search by city
+    const handleSearch = (name) => {
+        const cityName = name[0].toUpperCase() + name.slice(1);
+        const filter = posts.filter((post) => post.city === cityName);
+        setPosts(filter);
+    };
+
+    //reset
+    const handleReset = () => {
+        setPosts(reset);
+        setCity("");
+    };
     return (
         <div className="page data">
             {error && <div>{error}</div>}
@@ -46,10 +64,17 @@ const Posts = () => {
                     </div>
 
                     <div className="search-filter">
-                        <span>Cerca per Cita</span>
+                        <span>Search by city</span>
                         <div>
-                            <input type="text" />
-                            <button>Search</button>
+                            <input
+                                type="text"
+                                value={city}
+                                onChange={(e) => setCity(e.target.value)}
+                            />
+                            <button onClick={() => handleSearch(city)}>
+                                Search
+                            </button>
+                            <button onClick={handleReset}>Reset</button>
                         </div>
                     </div>
                     <div className="data-container">

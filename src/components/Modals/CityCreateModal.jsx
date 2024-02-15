@@ -105,7 +105,8 @@ const CityModal = ({ modalClose }) => {
                                 name="internet_speed"
                                 min="0"
                                 required
-                                placeholder={formState.internet_speed}
+                                placeholder={"Mbps"}
+                                value={formState.internet_speed}
                                 onChange={handleChange}
                             />
                         </div>
@@ -115,6 +116,7 @@ const CityModal = ({ modalClose }) => {
                                 type="number"
                                 name="sefety_level"
                                 min="0"
+                                max="10"
                                 required
                                 value={formState.sefety_level}
                                 onChange={handleChange}

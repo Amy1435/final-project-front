@@ -7,18 +7,37 @@ const Users = () => {
     const [users, setUsers] = useState();
     const [error, setError] = useState();
 
+    //search by city
+    const [city, setCity] = useState("");
+    //reset
+    const [reset, setReset] = useState([]);
+
     useEffect(() => {
         axios
             .get(`${VITE_URL_API}/users`)
             .then((res) => {
                 console.log(res.data);
                 setUsers(res.data);
+                setReset(res.data);
             })
             .catch((error) => {
                 console.log(error);
                 setError(true);
             });
     }, []);
+
+    //search by city
+    const handleSearch = (name) => {
+        const cityName = name[0].toUpperCase() + name.slice(1);
+        const filter = users.filter((user) => user.from_city === cityName);
+        setUsers(filter);
+    };
+
+    //reset
+    const handleReset = () => {
+        setUsers(reset);
+        setCity("");
+    };
 
     return (
         <div className="page data">
@@ -46,10 +65,17 @@ const Users = () => {
                     </div>
 
                     <div className="search-filter">
-                        <span>Cerca per Cita</span>
+                        <span>Search by city</span>
                         <div>
-                            <input type="text" />
-                            <button>Search</button>
+                            <input
+                                type="text"
+                                value={city}
+                                onChange={(e) => setCity(e.target.value)}
+                            />
+                            <button onClick={() => handleSearch(city)}>
+                                Search
+                            </button>
+                            <button onClick={handleReset}>Reset</button>
                         </div>
                     </div>
                     <div className="data-container users">

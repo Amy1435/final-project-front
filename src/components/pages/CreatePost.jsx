@@ -14,9 +14,10 @@ const CreatePost = () => {
 
     //to create the post
     const [title, setTitle] = useState("");
-    const [city, setCity] = useState("");
     const [img, setImg] = useState("");
     const [post, setPost] = useState("");
+    const [cities, setCities] = useState([]);
+    const [selectedCity, setSelectedCity] = useState("");
     //messages
     const [error, setError] = useState();
     const [succefullMsg, setSuccefullMsg] = useState("");
@@ -26,9 +27,6 @@ const CreatePost = () => {
     const [modalEditOpen, setModalEditOpen] = useState(false);
     const [modalDeleteOpen, setModalDeleteOpen] = useState(false);
     const [modalCreateCity, setModalCreateCity] = useState(false);
-    //cities
-    const [cities, setCities] = useState([]);
-    const [selectedCity, setSelectedCity] = useState("");
 
     const id = user._id;
 
@@ -90,8 +88,8 @@ const CreatePost = () => {
                 console.log(res.data);
                 setTitle("");
                 setImg("");
-                setCity("");
                 setPost("");
+                setSelectedCity("");
             })
             .catch((error) => {
                 console.error(error);

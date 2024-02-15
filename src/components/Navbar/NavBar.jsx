@@ -47,6 +47,10 @@ const NavBar = () => {
                         <>
                             <li>
                                 {" "}
+                                <NavLink to="/cities">Cities</NavLink>
+                            </li>
+                            <li>
+                                {" "}
                                 <NavLink to="/posts">Posts</NavLink>
                             </li>
                             <li>

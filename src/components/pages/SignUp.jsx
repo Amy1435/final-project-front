@@ -1,20 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 const { VITE_URL_API } = import.meta.env;
 import { useNavigate } from "react-router-dom";
+import CityModal from "../Modals/CityCreateModal";
 
 const SignUp = () => {
+    //sign up components
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [profileImage, setProfileImage] = useState("");
-    const [city, setCity] = useState("");
+    const [cities, setCities] = useState([]);
+    const [selectedCity, setSelectedCity] = useState("");
     const [age, setAge] = useState("");
     const [bio, setBio] = useState("");
     const [error, setError] = useState();
     const [succefullMsg, setSuccefullMsg] = useState("");
+    //modals
+    const [modalCreateCity, setModalCreateCity] = useState(false);
+
+    //navigate
     const navigate = useNavigate();
 
+    //sign up user
     const handleSubmit = (e) => {
         e.preventDefault();
         axios
@@ -23,7 +31,7 @@ const SignUp = () => {
                 email: email,
                 password: password,
                 profile_img: profileImage,
-                from_city: city,
+                from_city: selectedCity,
                 age: age,
                 bio: bio,
             })
@@ -34,7 +42,7 @@ const SignUp = () => {
                 setEmail("");
                 setPassword("");
                 setProfileImage("");
-                setCity("");
+                setSelectedCity("");
                 setAge("");
                 setBio("");
                 navigate("/auth/log-in");
@@ -43,9 +51,27 @@ const SignUp = () => {
                 console.error(error);
                 setError(error);
             });
-
-        setError("");
     };
+
+    //get cities
+    useEffect(() => {
+        axios
+            .get(`${VITE_URL_API}/cities`)
+            .then((response) => {
+                console.log(response.data);
+                setCities(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+                setError(true);
+            });
+    }, []);
+
+    //open modal to create city
+    const handleModalCity = () => {
+        setModalCreateCity(true);
+    };
+
     return (
         <>
             <div className="sign-up form">
@@ -93,13 +119,32 @@ const SignUp = () => {
                             />
                         </div>
                         <div>
-                            <span>Which city are you from?</span>
-                            <input
-                                type="text"
+                            <span>Which city are you from</span>
+                            <select
                                 required
-                                value={city}
-                                onChange={(e) => setCity(e.target.value)}
-                            />
+                                value={selectedCity}
+                                onChange={(e) =>
+                                    setSelectedCity(e.target.value)
+                                }
+                            >
+                                <option value="" disabled>
+                                    Select a city
+                                </option>
+                                {cities.map((city) => (
+                                    <option
+                                        key={city._id}
+                                        value={city.name}
+                                        onChange={(e) =>
+                                            setSelectedCity(e.target.value)
+                                        }
+                                    >
+                                        {city.name}
+                                    </option>
+                                ))}
+                            </select>
+                            <button className="btn" onClick={handleModalCity}>
+                                New City
+                            </button>
                         </div>
                         <div>
                             <span>How old are you?</span>
@@ -128,6 +173,13 @@ const SignUp = () => {
                     )}
                 </form>
             </div>
+            {modalCreateCity && (
+                <CityModal
+                    modalClose={() => {
+                        setModalCreateCity(false);
+                    }}
+                />
+            )}
         </>
     );
 };

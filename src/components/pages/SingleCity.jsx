@@ -2,14 +2,18 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Post from "../singleComponents/Post";
+import User from "../singleComponents/User";
 const { VITE_URL_API } = import.meta.env;
 
 const SingleCity = () => {
     const [city, setCity] = useState({});
     const [posts, setPosts] = useState({});
+    const [users, setUsers] = useState({});
     const [error, setError] = useState();
     const { id } = useParams();
+    const name = city.name;
 
+    //get city data
     useEffect(() => {
         axios
             .get(`${VITE_URL_API}/cities/${id}`)
@@ -23,18 +27,33 @@ const SingleCity = () => {
             });
     }, [id]);
 
+    //get city posts
     useEffect(() => {
         axios
-            .get(`${VITE_URL_API}/posts?city=${city.name}`)
+            .get(`${VITE_URL_API}/posts?city=${name}`)
             .then((res) => {
                 console.log(res.data);
-                setCity(res.data);
+                setPosts(res.data);
             })
             .catch((error) => {
                 console.log(error);
                 setError(true);
             });
-    }, []);
+    }, [name]);
+
+    //get city users
+    useEffect(() => {
+        axios
+            .get(`${VITE_URL_API}/users?city=${name}`)
+            .then((res) => {
+                console.log(res.data);
+                setUsers(res.data);
+            })
+            .catch((error) => {
+                console.log(error);
+                setError(true);
+            });
+    }, [name]);
 
     return (
         <div className="page citys">
@@ -58,13 +77,29 @@ const SingleCity = () => {
                         </span>
                     </div>
                     {posts.length === 0 && <div>No Posts yet </div>}
+                    {users.length === 0 && <div>No Users from this city </div>}
                     {posts.length > 0 && (
-                        <div className="data-container">
-                            {posts.map((post) => (
-                                <div key={post._id}>
-                                    <Post post={post} />
-                                </div>
-                            ))}
+                        <div className="page data">
+                            <div className="data-container">
+                                <h1>Digital Nomad experiences</h1>
+                                {posts.map((post) => (
+                                    <div key={post._id}>
+                                        <Post post={post} />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                    {users.length > 0 && (
+                        <div className="page data">
+                            <div className="data-container users">
+                                <h1>Users from this city</h1>
+                                {users.map((user) => (
+                                    <div key={user._id}>
+                                        <User user={user} />
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     )}
                 </>
