@@ -7,19 +7,28 @@ import { useEffect } from "react";
 import Post from "../singleComponents/Post";
 import PostModalDelete from "../Modals/PostDeleteModal";
 import PostModal from "../Modals/PostEditModal";
+import CityModal from "../Modals/CityCreateModal";
 
 const CreatePost = () => {
     const { user } = useContext(Context);
 
+    //to create the post
     const [title, setTitle] = useState("");
     const [city, setCity] = useState("");
     const [img, setImg] = useState("");
     const [post, setPost] = useState("");
+    //messages
     const [error, setError] = useState();
     const [succefullMsg, setSuccefullMsg] = useState("");
+    //post to edit or eliminate
     const [userPosts, setUserPosts] = useState([]);
+    //modals
     const [modalEditOpen, setModalEditOpen] = useState(false);
     const [modalDeleteOpen, setModalDeleteOpen] = useState(false);
+    const [modalCreateCity, setModalCreateCity] = useState(false);
+    //cities
+    const [cities, setCities] = useState([]);
+    const [selectedCity, setSelectedCity] = useState("");
 
     const id = user._id;
 
@@ -37,6 +46,20 @@ const CreatePost = () => {
             });
     }, [id]);
 
+    //get cities
+    useEffect(() => {
+        axios
+            .get(`${VITE_URL_API}/cities`)
+            .then((response) => {
+                console.log(response.data);
+                setCities(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+                setError(true);
+            });
+    }, []);
+
     //open modal to edit the user
     const handleModalEdit = () => {
         setModalEditOpen(true);
@@ -45,13 +68,17 @@ const CreatePost = () => {
     const handleModalDelete = () => {
         setModalDeleteOpen(true);
     };
+    //open modal to create city
+    const handleModalCity = () => {
+        setModalCreateCity(true);
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         axios
             .post(`${VITE_URL_API}/posts`, {
                 title: title,
-                city: city,
+                city: selectedCity,
                 img: img,
                 post: post,
                 user: user._id,
@@ -114,12 +141,31 @@ const CreatePost = () => {
                         </div>
                         <div>
                             <span>City</span>
-                            <input
-                                type="text"
+                            <select
                                 required
-                                value={city}
-                                onChange={(e) => setCity(e.target.value)}
-                            />
+                                value={selectedCity}
+                                onChange={(e) =>
+                                    setSelectedCity(e.target.value)
+                                }
+                            >
+                                <option value="" disabled>
+                                    Select a city
+                                </option>
+                                {cities.map((city) => (
+                                    <option
+                                        key={city._id}
+                                        value={city.name}
+                                        onChange={(e) =>
+                                            setSelectedCity(e.target.value)
+                                        }
+                                    >
+                                        {city.name}
+                                    </option>
+                                ))}
+                            </select>
+                            <button className="btn" onClick={handleModalCity}>
+                                New City
+                            </button>
                         </div>
                         <div>
                             <span>Travel image</span>
@@ -195,6 +241,13 @@ const CreatePost = () => {
                     </div>
                 </div>
             </div>
+            {modalCreateCity && (
+                <CityModal
+                    modalClose={() => {
+                        setModalCreateCity(false);
+                    }}
+                />
+            )}
         </>
     );
 };

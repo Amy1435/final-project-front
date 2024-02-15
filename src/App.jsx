@@ -12,6 +12,8 @@ import NavBar from "./components/Navbar/NavBar";
 import Users from "./components/pages/Users";
 import SingleUser from "./components/pages/SingleUser";
 import UserSettings from "./components/pages/UserSettings";
+import Cities from "./components/pages/Cities";
+import SingleCity from "./components/pages/SingleCity";
 
 function App() {
     const { user } = useContext(Context);
@@ -31,6 +33,8 @@ function App() {
                     path="/user/posts"
                     element={user ? <CreatePost /> : <LogIn />}
                 />
+                <Route path="/cities" element={<Cities />} />
+                <Route path="/cities/:id" element={<SingleCity />} />
                 <Route
                     path="/auth/sign-up"
                     element={user ? <Posts /> : <SignUp />}

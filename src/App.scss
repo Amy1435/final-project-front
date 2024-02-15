@@ -296,3 +296,44 @@ nav {
     width: 80%;
     border-radius: 0.7rem;
 }
+
+////////////////////////////////////////////////////////
+/// CITIES PAGE
+.data-container.cities {
+    grid-template-columns: repeat(4, 300px);
+
+    .cities {
+        position: relative;
+        border: 0.2rem solid #de2b52;
+        border-radius: 1.5rem;
+        height: 300px;
+        overflow: hidden;
+        figure {
+            position: relative;
+            height: 100%;
+            overflow: hidden;
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        div {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            text-align: center;
+            align-items: center;
+            box-sizing: border-box;
+            font-size: 2rem;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+    }
+}

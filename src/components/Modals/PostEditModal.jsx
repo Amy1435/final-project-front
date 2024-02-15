@@ -96,9 +96,7 @@ const PostModal = ({ modalClose, postData, setUserPosts }) => {
                     </div>
                     <div className="btn-modal">
                         <button type="submit">Update</button>
-                        <button onClick={modalClose} type="submit">
-                            Close
-                        </button>
+                        <button onClick={modalClose}>Close</button>
                     </div>
                     {success && <div className="error">{success}</div>}
                     {error && (
