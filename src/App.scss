@@ -12,20 +12,28 @@ img {
 //NAVBAR
 nav {
     display: flex;
-    padding: 2rem;
-    background-color: black;
+    padding: 2rem 3rem 0 3rem;
+    background-color: transparent;
     align-items: center;
     justify-content: space-between;
     color: white;
-
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-sizing: border-box;
     figure {
         img {
+            height: auto;
             width: 250px;
+            //add minimum width
         }
     }
     menu {
         display: flex;
-        gap: 2rem;
+        gap: 3rem;
         list-style: none;
         li {
             a {
@@ -34,9 +42,71 @@ nav {
                 font-size: 1.3rem;
 
                 &.active {
-                    color: #de2b52;
+                    color: white;
                     border-bottom: 2px solid #de2b52;
                 }
+            }
+        }
+        .common-links {
+            display: flex;
+            gap: 2rem;
+            padding: 1rem 2rem;
+        }
+        .log-links {
+            display: flex;
+            gap: 1.5rem;
+            li {
+                padding: 0.9rem 0.7rem;
+                border-radius: 0.5rem;
+                border: 1px solid white;
+                &:hover {
+                    background-color: #de2b52;
+                    padding: none;
+                }
+            }
+        }
+    }
+}
+
+///////////////////////////////////////////////
+/// HOME
+.home {
+    padding: 0;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: url(./images/landing-page.png);
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+
+    .home-text {
+        text-align: center;
+        display: flex;
+        width: 52%;
+        gap: 4rem;
+        .text {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            justify-content: center;
+            width: 56%;
+            h1 {
+                font-size: 3.5rem;
+            }
+            p {
+                margin-top: 10px;
+                font-size: 1.5rem;
+            }
+        }
+        figure {
+            img {
+                width: 80%;
             }
         }
     }

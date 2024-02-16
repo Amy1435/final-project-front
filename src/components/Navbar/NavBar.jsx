@@ -9,6 +9,7 @@ const NavBar = () => {
     const handleLogOut = () => {
         dispatch({ type: "LOGOUT" });
     };
+
     return (
         <>
             <nav>
@@ -18,66 +19,62 @@ const NavBar = () => {
                     </Link>
                 </figure>
                 <menu>
-                    {!user && (
-                        <>
+                    <>
+                        <div className="common-links">
                             <li>
-                                {" "}
                                 <NavLink to="/cities">Cities</NavLink>
                             </li>
                             <li>
-                                {" "}
                                 <NavLink to="/posts">Posts</NavLink>
                             </li>
                             <li>
-                                {" "}
                                 <NavLink to="/users">Users</NavLink>
                             </li>
-                            <li>
-                                {" "}
-                                <NavLink to="/auth/log-in">Log in</NavLink>
-                            </li>
-                            <li>
-                                {" "}
-                                <NavLink to="/auth/sign-up">Sign Up</NavLink>
-                            </li>
-                        </>
-                    )}
+                        </div>
 
-                    {user && (
-                        <>
-                            <li>
-                                {" "}
-                                <NavLink to="/cities">Cities</NavLink>
-                            </li>
-                            <li>
-                                {" "}
-                                <NavLink to="/posts">Posts</NavLink>
-                            </li>
-                            <li>
-                                {" "}
-                                <NavLink to="/users">Users</NavLink>
-                            </li>
-                            <li>
-                                {" "}
-                                <NavLink to="/user/posts">
-                                    Your experiences
-                                </NavLink>
-                            </li>
-                            <li>
-                                {" "}
-                                <NavLink to="/user/settings">Settings</NavLink>
-                            </li>
-                            <li>
-                                {" "}
-                                <NavLink
-                                    to="/auth/sign-up"
-                                    onClick={handleLogOut}
-                                >
-                                    Log Out
-                                </NavLink>
-                            </li>
-                        </>
-                    )}
+                        {!user ? (
+                            <>
+                                <div className="log-links">
+                                    <li>
+                                        {" "}
+                                        <NavLink to="/auth/log-in">
+                                            Log in
+                                        </NavLink>
+                                    </li>
+                                    <li>
+                                        {" "}
+                                        <NavLink to="/auth/sign-up">
+                                            Sign Up
+                                        </NavLink>
+                                    </li>
+                                </div>
+                            </>
+                        ) : (
+                            <>
+                                <li>
+                                    {" "}
+                                    <NavLink to="/user/posts">
+                                        Your experiences
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    {" "}
+                                    <NavLink to="/user/settings">
+                                        Settings
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    {" "}
+                                    <NavLink
+                                        to="/auth/sign-up"
+                                        onClick={handleLogOut}
+                                    >
+                                        Log Out
+                                    </NavLink>
+                                </li>
+                            </>
+                        )}
+                    </>
                 </menu>
             </nav>
         </>
