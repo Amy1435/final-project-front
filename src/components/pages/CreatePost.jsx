@@ -244,6 +244,7 @@ const CreatePost = () => {
                     modalClose={() => {
                         setModalCreateCity(false);
                     }}
+                    setCities={setCities}
                 />
             )}
         </>

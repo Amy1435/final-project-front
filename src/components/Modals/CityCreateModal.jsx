@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 const { VITE_URL_API } = import.meta.env;
 
-const CityModal = ({ modalClose }) => {
+const CityModal = ({ modalClose, setCities }) => {
     const [success, setSuccess] = useState("");
     const [error, setError] = useState("");
     const [formState, setFormState] = useState({
@@ -31,8 +31,10 @@ const CityModal = ({ modalClose }) => {
         axios
             .post(`${VITE_URL_API}/cities`, formState)
             .then((res) => {
-                setSuccess("Update successful");
                 console.log(res.data);
+                const newCity = res.data;
+                setCities((prevCities) => [...prevCities, ...newCity]);
+                setSuccess("City created successful");
                 modalClose();
             })
             .catch((error) => {

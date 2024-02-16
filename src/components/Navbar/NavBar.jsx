@@ -13,7 +13,7 @@ const NavBar = () => {
         <>
             <nav>
                 <figure>
-                    <Link to="/posts">
+                    <Link to="/">
                         <img src={logo} alt="" />
                     </Link>
                 </figure>

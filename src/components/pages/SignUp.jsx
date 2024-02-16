@@ -178,6 +178,7 @@ const SignUp = () => {
                     modalClose={() => {
                         setModalCreateCity(false);
                     }}
+                    setCities={setCities}
                 />
             )}
         </>

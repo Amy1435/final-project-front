@@ -1,9 +1,12 @@
 const { VITE_URL_API } = import.meta.env;
 import Post from "../singleComponents/Post";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { Context } from "../../context/UserContext";
 
 const Posts = () => {
+    const { user } = useContext(Context);
+
     const [posts, setPosts] = useState([]);
     const [error, setError] = useState("");
 
@@ -16,15 +19,24 @@ const Posts = () => {
         axios
             .get(`${VITE_URL_API}/posts`)
             .then((res) => {
+                //filter post if logged
                 console.log(res.data);
-                setPosts(res.data);
-                setReset(res.data);
+                if (user) {
+                    const filterPosts = res.data.filter(
+                        (post) => post.user._id !== user._id
+                    );
+                    setPosts(filterPosts);
+                    setReset(filterPosts);
+                } else {
+                    setPosts(res.data);
+                    setReset(res.data);
+                }
             })
             .catch((error) => {
                 console.log(error);
                 setError(true);
             });
-    }, []);
+    }, [user]);
 
     //search by city
     const handleSearch = (name) => {

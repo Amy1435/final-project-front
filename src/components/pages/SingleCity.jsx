@@ -1,11 +1,14 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import Post from "../singleComponents/Post";
 import User from "../singleComponents/User";
+import { Context } from "../../context/UserContext";
 const { VITE_URL_API } = import.meta.env;
 
 const SingleCity = () => {
+    const { user } = useContext(Context);
+
     const [city, setCity] = useState({});
     const [posts, setPosts] = useState({});
     const [users, setUsers] = useState({});
@@ -33,27 +36,43 @@ const SingleCity = () => {
             .get(`${VITE_URL_API}/posts?city=${name}`)
             .then((res) => {
                 console.log(res.data);
-                setPosts(res.data);
+                //if user logged in filter
+                if (user) {
+                    const filterUsers = res.data.filter(
+                        (post) => post.user._id !== user._id
+                    );
+                    setPosts(filterUsers);
+                } else {
+                    setPosts(res.data);
+                }
             })
             .catch((error) => {
                 console.log(error);
                 setError(true);
             });
-    }, [name]);
+    }, [name, user]);
 
     //get city users
     useEffect(() => {
         axios
             .get(`${VITE_URL_API}/users?city=${name}`)
             .then((res) => {
+                //filter post if logged
                 console.log(res.data);
-                setUsers(res.data);
+                if (user) {
+                    const filterPosts = res.data.filter(
+                        (currUser) => currUser._id !== user._id
+                    );
+                    setUsers(filterPosts);
+                } else {
+                    setUsers(res.data);
+                }
             })
             .catch((error) => {
                 console.log(error);
                 setError(true);
             });
-    }, [name]);
+    }, [name, user]);
 
     return (
         <div className="page citys">
