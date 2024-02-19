@@ -8,11 +8,16 @@ img {
     box-sizing: border-box;
 }
 
+// ERROR
+.error-message {
+    color: #ff0000;
+    margin-top: 10px;
+}
 /////////////////////////////////////////
 //NAVBAR
 nav {
     display: flex;
-    padding: 2rem 3rem 0 3rem;
+    padding: 2rem 3rem 2rem 3rem;
     background-color: transparent;
     align-items: center;
     justify-content: space-between;
@@ -24,6 +29,7 @@ nav {
     width: 100%;
     z-index: 1000;
     box-sizing: border-box;
+
     figure {
         img {
             height: auto;
@@ -67,7 +73,18 @@ nav {
         }
     }
 }
-
+nav.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: #b30c30;
+    a {
+        &.active {
+            border-bottom: 2px solid white;
+        }
+    }
+}
 ///////////////////////////////////////////////
 /// HOME
 .home {
@@ -113,29 +130,84 @@ nav {
 }
 
 //////////////////////////////////////////////////
-//POSTS/USERS PAGE
+//POSTS/USERS/CITIES PAGE
 .data {
     .search-filter {
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 0.5rem;
+        margin: 3rem;
+
+        .searchBox {
+            display: inline-block;
+            width: 20%;
+            padding: 20px 100px 20px 30px;
+            box-shadow: 5px 10px 30px rgba(85 85 85/ 20%);
+            border-radius: 0.5rem;
+            position: relative;
+            .searchInput {
+                border: none;
+                outline: none;
+                font-size: 20px;
+                width: 50%;
+                padding-right: 60px;
+            }
+            .search-btn {
+                display: flex;
+                position: absolute;
+                top: 50%;
+                right: 10px;
+                transform: translateY(-50%);
+                gap: 0.5rem;
+                .searchButton {
+                    outline: none;
+                    border: none;
+                    padding: 14px 20px;
+                    border-radius: 20px;
+                    cursor: pointer;
+                    font-size: 17px;
+                    color: white;
+                    transition: background-color 0.3s;
+                    &.searchIcon {
+                        background-color: #de2b52;
+
+                        &:hover {
+                            background-color: #c22546;
+                        }
+                    }
+                    &.resetIcon {
+                        background-color: #4a90e2;
+
+                        &:hover {
+                            background-color: #3f80d6;
+                        }
+                    }
+                }
+            }
+        }
     }
     .data-container {
-        margin: 2rem;
         display: grid;
-        justify-content: center;
-        grid-template-columns: repeat(3, 500px);
-        gap: 2rem;
+        margin: 0 auto;
     }
 }
 
 .title-text {
     display: flex;
+    height: 25vh;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    margin: 3rem;
-    gap: 2rem;
+    padding: 4rem 3rem 0.5rem 3rem;
+    position: relative;
+    gap: 1.5rem;
+    background-color: black;
+    color: white;
+    background: url(./images/bgc-img.png);
+    background-size: cover;
+    background-position: top;
+
     div {
         text-align: center;
         width: 700px;
@@ -146,17 +218,42 @@ nav {
 .post {
     display: flex;
     flex-direction: column;
-    border-radius: 1.5rem;
-    gap: 0.5rem;
-    border: 0.2rem solid #de2b52;
+
     .datails-container {
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
         padding: 1rem;
+        box-shadow: 5px 10px 30px rgba(90 90 90/ 60%);
+        border-radius: 0rem 0rem 1.5rem 1.5rem;
+        min-height: 130px;
+        .post-write {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+        }
+        .post-title {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+        }
+        .details {
+            font-size: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+            .city {
+                color: #de2b52;
+                font-weight: 600;
+            }
+        }
     }
     figure {
-        height: 250px;
+        height: 200px;
         overflow: hidden;
         border-radius: 1.5rem 1.5rem 0 0;
         img {
@@ -169,26 +266,23 @@ nav {
         text-decoration: none;
         color: inherit;
     }
-    .details {
-        font-size: 14px;
-        display: flex;
-        flex-direction: column;
-        gap: 0.3rem;
-        .city {
-            color: #de2b52;
-            font-weight: 600;
-        }
-    }
-    .post-write {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        line-clamp: 2;
-        -webkit-box-orient: vertical;
-    }
 }
 
+//POSTS PAGE
+.data-container.posts {
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    max-width: 1500px;
+    gap: 3.5rem;
+    padding: 0rem 2rem 3rem 2rem;
+
+    .posts-data {
+        max-width: 500px;
+        transition: transform 0.3s ease-in-out;
+        &:hover {
+            transform: scale(1.05);
+        }
+    }
+}
 //SINGLE POST PAGE
 
 .single-data-container {
@@ -198,33 +292,52 @@ nav {
 }
 
 /////////////////////////////////////////////
-/// USER COMPONENT
+/// USERS PAGE
 .data {
-    .users {
-        grid-template-columns: repeat(4, 250px);
+    .data-container.users {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        max-width: 1200px;
+        gap: 3.5rem;
+        padding: 0rem 2rem 3rem 2rem;
     }
 }
+/// USER COMPONENT
 .user {
     display: flex;
     flex-direction: column;
     border-radius: 1.5rem;
-    gap: 0.5rem;
-    border: 0.2rem solid #de2b52;
+    padding: 2rem;
+    box-shadow: 5px 10px 30px rgba(90 90 90/ 60%);
+    max-width: 200px;
+    transition: transform 0.3s ease-in-out;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    &:hover {
+        transform: scale(1.05);
+    }
     figure {
-        height: 250px;
+        width: 150px;
+        height: 150px;
+        margin: 0 auto;
         overflow: hidden;
-        border-radius: 1.5rem 1.5rem 0 0;
+        border-radius: 50%;
+        top: -40px;
+        border: 2px solid #de2b52;
+
         img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            border-radius: 50%;
         }
     }
-    .datails-container {
+    .name {
         display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-        padding: 1rem;
+        justify-content: center;
+        margin-top: 1rem;
         > span:first-child {
             font-size: 20px;
             font-weight: 600;
@@ -234,18 +347,8 @@ nav {
         text-decoration: none;
         color: inherit;
     }
-    .details {
-        font-size: 14px;
-        display: flex;
-        gap: 0.3rem;
-        .city {
-            color: #de2b52;
-            font-weight: 600;
-        }
-    }
 }
 //SINGLE POST PAGE
-
 .single-data-container {
     display: flex;
     flex-direction: column;
@@ -321,6 +424,82 @@ nav {
     align-items: center;
     margin: 2rem;
 }
+
+//LOG IN / SIGN- UP PAGE
+.log-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 4rem;
+
+    .log {
+        border-radius: 10px;
+        box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3);
+        width: 400px;
+        background-color: white;
+        padding: 2rem;
+
+        form {
+            display: flex;
+            flex-direction: column;
+
+            .data-input {
+                margin: 10px 0;
+                padding: 12px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                outline: none;
+                width: -webkit-fill-available;
+            }
+
+            .data-input.select {
+                width: 200px;
+            }
+            .city {
+                display: flex;
+                gap: 0.5rem;
+                .add-city {
+                    padding: 10px;
+                    background-color: #4a90e2;
+                    color: #fff;
+                    font-size: 16px;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    margin: 10px 0;
+                }
+            }
+
+            button {
+                margin-top: 10px;
+                padding: 10px;
+                background-color: #de2b52;
+                color: #fff;
+                font-size: 16px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+            .not-member {
+                text-align: center;
+                padding: 10px;
+                font-size: 14px;
+                color: #555;
+            }
+
+            a {
+                color: #de2b52;
+                text-decoration: none;
+                font-weight: bold;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+}
 //////////////////////////////////////////
 /// MODAL
 .modal-container {
@@ -370,14 +549,23 @@ nav {
 ////////////////////////////////////////////////////////
 /// CITIES PAGE
 .data-container.cities {
-    grid-template-columns: repeat(4, 300px);
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    max-width: 1200px;
+    gap: 3.5rem;
+    padding: 0rem 0rem 3rem 0rem;
 
     .cities {
         position: relative;
-        border: 0.2rem solid #de2b52;
         border-radius: 1.5rem;
-        height: 300px;
+        height: 250px;
+        width: 250px;
         overflow: hidden;
+        box-shadow: 5px 10px 30px rgba(90 90 90/ 60%);
+        transition: transform 0.3s ease-in-out;
+        &:hover {
+            transform: scale(1.05);
+        }
+
         figure {
             position: relative;
             height: 100%;

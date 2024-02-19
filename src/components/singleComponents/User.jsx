@@ -7,19 +7,15 @@ const User = ({ user }) => {
                     <figure>
                         <img
                             src={
-                                user.profile_img
+                                user.profile_img.includes(`https://`)
                                     ? user.profile_img
-                                    : "https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg"
+                                    : `https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png`
                             }
                             alt="profile_img"
                         />
                     </figure>
-                    <div className="datails-container">
-                        <span>User: {user.username}</span>
-                        <div className="details">
-                            <span>From: </span>
-                            <span className="city">{user.from_city}</span>
-                        </div>
+                    <div className="name">
+                        <span>{user.username}</span>
                     </div>
                 </Link>
             </div>

@@ -3,6 +3,11 @@ import Post from "../singleComponents/Post";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { Context } from "../../context/UserContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faArrowsRotate,
+    faMagnifyingGlass,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Posts = () => {
     const { user } = useContext(Context);
@@ -53,45 +58,57 @@ const Posts = () => {
     return (
         <div className="page data">
             {error && <div>{error}</div>}
-
+            {!error && posts.length === 0 && (
+                <div className="loading">Loading...</div>
+            )}
             {!error && posts && (
                 <>
                     <div className="title-text">
                         <div>
-                            <h1>Post</h1>
-                            <div>
-                                <p>
-                                    Lorem Ipsum is simply dummy text of the
-                                    printing and typesetting industry. Lorem
-                                    Ipsum has been the standard dummy text ever
-                                    since the 1500s, when an unknown printer
-                                    took a galley of type and scrambled it to
-                                    make a type specimen book. It has survived
-                                    not only five centuries, but also the leap
-                                    into electronic typesetting, remaining
-                                    essentially unchanged.
-                                </p>
-                            </div>
+                            <h1>Posts</h1>
+                        </div>
+                        <div>
+                            <p>
+                                Lorem Ipsum is simply dummy text of the printing
+                                and typesetting industry. Lorem Ipsum has been
+                                the standard dummy text ever since the 1500s,
+                                when an unknown printer took a galley of type
+                                and scrambled it to make a type specimen book.
+                                It has survived not only five centuries, but
+                                also the leap into electronic typesetting,
+                                remaining essentially unchanged.
+                            </p>
                         </div>
                     </div>
 
                     <div className="search-filter">
-                        <span>Search by city</span>
-                        <div>
+                        <div className="searchBox">
                             <input
                                 type="text"
                                 value={city}
                                 onChange={(e) => setCity(e.target.value)}
+                                className="searchInput"
+                                placeholder="Search by city"
                             />
-                            <button onClick={() => handleSearch(city)}>
-                                Search
-                            </button>
-                            <button onClick={handleReset}>Reset</button>
+                            <div className="search-btn">
+                                <button
+                                    onClick={() => handleSearch(city)}
+                                    className="searchButton searchIcon"
+                                >
+                                    <FontAwesomeIcon icon={faMagnifyingGlass} />
+                                </button>
+                                <button
+                                    onClick={handleReset}
+                                    className="searchButton resetIcon"
+                                >
+                                    <FontAwesomeIcon icon={faArrowsRotate} />
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    <div className="data-container">
+                    <div className="data-container posts">
                         {posts.map((post) => (
-                            <div key={post._id}>
+                            <div key={post._id} className="posts-data">
                                 <Post post={post} />
                             </div>
                         ))}

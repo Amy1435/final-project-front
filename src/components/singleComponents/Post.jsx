@@ -4,39 +4,44 @@ const Post = ({ post }) => {
     return (
         <>
             <div className="post">
-                <figure>
-                    <img
-                        src={
-                            post.img
-                                ? post.img
-                                : "https://static.vecteezy.com/system/resources/thumbnails/004/141/669/small/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg"
-                        }
-                        alt=""
-                    />
-                </figure>
-                <div className="datails-container">
-                    <Link to={`/posts/${post._id}`}>
-                        <h2>{post.title}</h2>
-                    </Link>
-                    <div>
-                        <div className="details">
-                            <div>
-                                <span>
-                                    {dayjs(post.createdAt).format("DD/MM/YYYY")}{" "}
-                                    -{" "}
-                                </span>
-                                <span className="city">{post.city}</span>
-                            </div>
-                            <div>
-                                <span>
-                                    {post.user.username} from{" "}
-                                    {post.user.from_city}{" "}
-                                </span>
+                <Link to={`/posts/${post._id}`}>
+                    <figure>
+                        <img
+                            src={
+                                post.img.includes(`https://`)
+                                    ? post.img
+                                    : `https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png`
+                            }
+                            alt=""
+                        />
+                    </figure>
+                    <div className="datails-container">
+                        <div className="post-title">
+                            <h2>{post.title}</h2>
+                        </div>
+
+                        <div>
+                            <div className="details">
+                                <div>
+                                    <span>
+                                        {dayjs(post.createdAt).format(
+                                            "DD/MM/YYYY"
+                                        )}{" "}
+                                        -{" "}
+                                    </span>
+                                    <span className="city">{post.city}</span>
+                                </div>
+                                <div>
+                                    <span>
+                                        {post.user.username} from{" "}
+                                        {post.user.from_city}{" "}
+                                    </span>
+                                </div>
                             </div>
                         </div>
+                        <span className="post-write">{post.post}</span>
                     </div>
-                    <span className="post-write">{post.post}</span>
-                </div>
+                </Link>
             </div>
         </>
     );

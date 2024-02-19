@@ -1,14 +1,23 @@
 import { NavLink, Link } from "react-router-dom";
 import logo from "../../images/logo.png";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Context } from "../../context/UserContext";
-
+import { handleScroll } from "./handleScroll";
 const NavBar = () => {
     const { user, dispatch } = useContext(Context);
 
     const handleLogOut = () => {
         dispatch({ type: "LOGOUT" });
     };
+
+    //scroll
+    useEffect(() => {
+        window.addEventListener("scroll", handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
 
     return (
         <>

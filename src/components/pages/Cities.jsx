@@ -2,6 +2,11 @@ const { VITE_URL_API } = import.meta.env;
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faMagnifyingGlass,
+    faArrowsRotate,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Cities = () => {
     const [cities, setCities] = useState([]);
@@ -12,6 +17,7 @@ const Cities = () => {
     //reset
     const [reset, setReset] = useState([]);
 
+    //get cities
     useEffect(() => {
         axios
             .get(`${VITE_URL_API}/cities`)
@@ -42,40 +48,53 @@ const Cities = () => {
     return (
         <div className="page data">
             {error && <div>{error}</div>}
+            {!error && cities.length === 0 && (
+                <div className="loading">Loading...</div>
+            )}
 
             {!error && cities && (
                 <>
                     <div className="title-text">
                         <div>
                             <h1>Cities</h1>
-                            <div>
-                                <p>
-                                    Lorem Ipsum is simply dummy text of the
-                                    printing and typesetting industry. Lorem
-                                    Ipsum has been the standard dummy text ever
-                                    since the 1500s, when an unknown printer
-                                    took a galley of type and scrambled it to
-                                    make a type specimen book. It has survived
-                                    not only five centuries, but also the leap
-                                    into electronic typesetting, remaining
-                                    essentially unchanged.
-                                </p>
-                            </div>
+                        </div>
+                        <div>
+                            <p>
+                                Lorem Ipsum is simply dummy text of the printing
+                                and typesetting industry. Lorem Ipsum has been
+                                the standard dummy text ever since the 1500s,
+                                when an unknown printer took a galley of type
+                                and scrambled it to make a type specimen book.
+                                It has survived not only five centuries, but
+                                also the leap into electronic typesetting,
+                                remaining essentially unchanged.
+                            </p>
                         </div>
                     </div>
 
                     <div className="search-filter">
-                        <span>Search by city</span>
-                        <div>
+                        <div className="searchBox">
                             <input
                                 type="text"
                                 value={city}
                                 onChange={(e) => setCity(e.target.value)}
+                                className="searchInput"
+                                placeholder="Search by city"
                             />
-                            <button onClick={() => handleSearch(city)}>
-                                Search
-                            </button>
-                            <button onClick={handleReset}>Reset</button>
+                            <div className="search-btn">
+                                <button
+                                    onClick={() => handleSearch(city)}
+                                    className="searchButton searchIcon"
+                                >
+                                    <FontAwesomeIcon icon={faMagnifyingGlass} />
+                                </button>
+                                <button
+                                    onClick={handleReset}
+                                    className="searchButton resetIcon"
+                                >
+                                    <FontAwesomeIcon icon={faArrowsRotate} />
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <div className="data-container cities">
@@ -83,7 +102,14 @@ const Cities = () => {
                             <div key={city._id} className="cities">
                                 <Link to={`/cities/${city._id}`}>
                                     <figure>
-                                        <img src={city.img} alt="city-img" />
+                                        <img
+                                            src={
+                                                city.img.includes(`https://`)
+                                                    ? city.img
+                                                    : `https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png`
+                                            }
+                                            alt="city-img"
+                                        />
                                         <div>
                                             <span>{city.name}</span>
                                         </div>
