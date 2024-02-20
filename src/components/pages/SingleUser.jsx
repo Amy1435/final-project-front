@@ -33,7 +33,12 @@ const SingleUser = () => {
                         </figure>
                         <span>UserName:{user.username}</span>
 
-                        <span>City: {user.from_city}</span>
+                        <span>
+                            City:{" "}
+                            <Link to={`/cities/${user.city?._id}`}>
+                                {user.from_city}
+                            </Link>
+                        </span>
                         <span>Age: {user.age}</span>
                         <span>
                             User since:{" "}

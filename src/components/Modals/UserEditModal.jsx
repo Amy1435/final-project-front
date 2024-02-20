@@ -46,94 +46,108 @@ const UserModal = ({ modalClose, userData, setUserData }) => {
 
     return (
         <div className="modal-container">
-            <div className="form modal">
-                <form onSubmit={handleClick}>
-                    <h1>Update settings</h1>
-                    <div className="input-container">
-                        <div>
-                            <span>Username</span>
-                            <input
-                                type="text"
-                                name="username"
-                                required
-                                value={formState.username}
-                                onChange={handleChange}
-                            />
+            <div className="form-container-new">
+                <div className="form-new">
+                    <form onSubmit={handleClick}>
+                        <div className="input-container">
+                            <div>
+                                <span>Username</span>
+                                <input
+                                    type="text"
+                                    name="username"
+                                    required
+                                    value={formState.username}
+                                    onChange={handleChange}
+                                    className="data-input"
+                                />
+                            </div>
+                            <div>
+                                <span>Email</span>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    required
+                                    value={formState.email}
+                                    onChange={handleChange}
+                                    className="data-input"
+                                />
+                            </div>
+                            <div>
+                                <span>Password</span>
+                                <input
+                                    type="password"
+                                    name="password"
+                                    value={formState.password}
+                                    onChange={handleChange}
+                                    className="data-input"
+                                />
+                            </div>
+                            <div>
+                                <span>Profile image</span>
+                                <input
+                                    type="text"
+                                    name="profile_img"
+                                    required
+                                    value={formState.profile_img}
+                                    onChange={handleChange}
+                                    className="data-input"
+                                />
+                            </div>
+                            <div>
+                                <span>City</span>
+                                <input
+                                    type="text"
+                                    required
+                                    name="from_city"
+                                    value={formState.from_city}
+                                    onChange={handleChange}
+                                    className="data-input"
+                                />
+                            </div>
+                            <div>
+                                <span>Age</span>
+                                <input
+                                    type="number"
+                                    required
+                                    min="18"
+                                    max="100"
+                                    name="age"
+                                    value={formState.age}
+                                    onChange={handleChange}
+                                    className="data-input"
+                                />
+                            </div>
+                            <div>
+                                <span>Bio</span>
+                                <textarea
+                                    required
+                                    value={formState.bio}
+                                    name="bio"
+                                    onChange={handleChange}
+                                    className="data-input"
+                                />
+                            </div>
                         </div>
-                        <div>
-                            <span>Email</span>
-                            <input
-                                type="email"
-                                name="email"
-                                required
-                                value={formState.email}
-                                onChange={handleChange}
-                            />
+                        <div className="btn-container">
+                            <button type="submit" className="btn blue">
+                                Update
+                            </button>
+                            <button
+                                onClick={modalClose}
+                                type="submit"
+                                className="btn"
+                            >
+                                Close
+                            </button>
                         </div>
-                        <div>
-                            <span>Password</span>
-                            <input
-                                type="password"
-                                name="password"
-                                value={formState.password}
-                                onChange={handleChange}
-                            />
-                        </div>
-                        <div>
-                            <span>Profile image</span>
-                            <input
-                                type="text"
-                                name="profile_img"
-                                required
-                                value={formState.profile_img}
-                                onChange={handleChange}
-                            />
-                        </div>
-                        <div>
-                            <span>City</span>
-                            <input
-                                type="text"
-                                required
-                                name="from_city"
-                                value={formState.from_city}
-                                onChange={handleChange}
-                            />
-                        </div>
-                        <div>
-                            <span>Age</span>
-                            <input
-                                type="number"
-                                required
-                                min="18"
-                                max="100"
-                                name="age"
-                                value={formState.age}
-                                onChange={handleChange}
-                            />
-                        </div>
-                        <div>
-                            <span>Bio</span>
-                            <textarea
-                                required
-                                value={formState.bio}
-                                name="bio"
-                                onChange={handleChange}
-                            />
-                        </div>
-                    </div>
-                    <div className="btn-modal">
-                        <button type="submit">Update</button>
-                        <button onClick={modalClose} type="submit">
-                            Close
-                        </button>
-                    </div>
-                    {success && <div className="error">{success}</div>}
-                    {error && (
-                        <div className="error">
-                            {error.response.data.message}
-                        </div>
-                    )}
-                </form>
+                        {success && <div className="error">{success}</div>}
+                        {error && (
+                            <div className="error">
+                                {error.response.data.message}
+                            </div>
+                        )}
+                    </form>
+                </div>
             </div>
         </div>
     );

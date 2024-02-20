@@ -33,8 +33,12 @@ const SinglePost = () => {
                         </figure>
                         <span>Title: {post.title}</span>
 
-                        <span>Travel City: {post.city}</span>
-
+                        <span>
+                            City:
+                            <Link to={`/cities/${post.user?._id}`}>
+                                {post.city}
+                            </Link>
+                        </span>
                         <span>
                             User:{" "}
                             <Link to={`/users/${post.user?._id}`}>

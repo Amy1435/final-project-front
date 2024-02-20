@@ -53,7 +53,7 @@ nav {
                 }
             }
         }
-        .common-links {
+        .links {
             display: flex;
             gap: 2rem;
             padding: 1rem 2rem;
@@ -358,63 +358,91 @@ nav.sticky {
 //////////////////////////////////////////
 /// USER SETTINGS
 .user-settings {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    padding: 2rem;
-}
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    max-width: 1200px;
+    gap: 3.5rem;
+    padding: 0rem 1rem 3rem 2rem;
+    margin: 3rem auto;
 
-.btn {
-    width: 80px;
-    background-color: #de2b52;
-    color: white;
-    border: none;
-    padding: 0.5rem;
-    font-size: 16px;
-    border-radius: 0.4rem;
-}
-.btn-container {
-    display: flex;
-    gap: 1rem;
-}
-//FORM SIGN-UP
-.form {
-    display: flex;
-    justify-content: center;
-    form {
+    .user-data {
         display: flex;
         flex-direction: column;
+        box-shadow: 5px 10px 30px rgba(85 85 85/ 20%);
+        border-radius: 1.5rem;
+        gap: 2rem;
+        padding: 1.5rem;
         align-items: center;
-        gap: 1.5rem;
-        padding: 2rem 0 2rem 0;
-        margin: 2rem 0 2rem 0;
-        border: 0.2rem solid #de2b52;
-        border-radius: 1rem;
-        width: 500px;
-        h1 {
-            color: #de2b52;
+        figure {
+            max-width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 2px solid #de2b52;
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 50%;
+            }
         }
-        span {
-            font-weight: 600;
-            color: #705555;
-        }
-        button {
-            width: 80px;
-            background-color: #de2b52;
-            color: white;
-            border: none;
-            padding: 0.5rem;
-            font-size: 16px;
-            border-radius: 0.6rem;
-        }
-        div {
+        .data {
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
-            input {
-                width: 200px;
+        }
+        .bio {
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+        .title-text {
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+        }
+    }
+    .user-data.posts {
+        display: flex;
+        align-items: center;
+
+        .data {
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 1.5rem;
+            box-shadow: 5px 10px 30px rgba(85 85 85/ 20%);
+            .user-post {
+                width: 100%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
             }
         }
+    }
+}
+
+.btn-container {
+    display: flex;
+    gap: 1rem;
+    .btn {
+        width: 80px;
+        background-color: #de2b52;
+        color: white;
+        border: none;
+        padding: 0.5rem;
+        font-size: 16px;
+        border-radius: 0.4rem;
+        cursor: pointer;
+    }
+    .btn.blue {
+        background-color: #4a90e2;
     }
 }
 
@@ -425,14 +453,55 @@ nav.sticky {
     margin: 2rem;
 }
 
-//LOG IN / SIGN- UP PAGE
-.log-container {
+//FORM SIGN-UP - eliminate
+// .form {
+//     display: flex;
+//     justify-content: center;
+//     form {
+//         display: flex;
+//         flex-direction: column;
+//         align-items: center;
+//         gap: 1.5rem;
+//         padding: 2rem 0 2rem 0;
+//         margin: 2rem 0 2rem 0;
+//         border: 0.2rem solid #de2b52;
+//         border-radius: 1rem;
+//         width: 500px;
+//         h1 {
+//             color: #de2b52;
+//         }
+//         span {
+//             font-weight: 600;
+//             color: #705555;
+//         }
+//         button {
+//             width: 80px;
+//             background-color: #de2b52;
+//             color: white;
+//             border: none;
+//             padding: 0.5rem;
+//             font-size: 16px;
+//             border-radius: 0.6rem;
+//         }
+//         div {
+//             display: flex;
+//             flex-direction: column;
+//             gap: 0.5rem;
+//             input {
+//                 width: 200px;
+//             }
+//         }
+//     }
+// }
+
+//LOG IN / SIGN- UP / FORM PAGE
+.form-container-new {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 4rem;
+    margin: 2rem;
 
-    .log {
+    .form-new {
         border-radius: 10px;
         box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3);
         width: 400px;
@@ -452,9 +521,6 @@ nav.sticky {
                 width: -webkit-fill-available;
             }
 
-            .data-input.select {
-                width: 200px;
-            }
             .city {
                 display: flex;
                 gap: 0.5rem;
@@ -467,6 +533,7 @@ nav.sticky {
                     border-radius: 5px;
                     cursor: pointer;
                     margin: 10px 0;
+                    width: 180px;
                 }
             }
 
@@ -498,6 +565,12 @@ nav.sticky {
                 }
             }
         }
+        .username {
+            margin: 1rem;
+            font-size: 18px;
+            display: flex;
+            justify-content: center;
+        }
     }
 }
 //////////////////////////////////////////
@@ -513,38 +586,15 @@ nav.sticky {
     align-items: center;
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.4);
-    .modal {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1.5rem;
-        padding: 2rem 0 2rem 0;
-        margin: 2rem 0 2rem 0;
-        border: 0.2rem solid #de2b52;
-        background-color: white;
-        width: 500px;
-        border-radius: 1rem;
-    }
-    .form form {
-        margin: none;
-        background-color: white;
-        .input-container {
-            width: 350px;
-        }
-    }
-    .btn-modal {
-        display: flex;
-        flex-direction: row;
-    }
 }
 
-.error {
-    color: #de2b52;
-    background-color: rgba(222, 43, 82, 0.3);
-    padding: 0.7rem;
-    width: 80%;
-    border-radius: 0.7rem;
-}
+// .error {
+//     color: #de2b52;
+//     background-color: rgba(222, 43, 82, 0.3);
+//     padding: 0.7rem;
+//     width: 80%;
+//     border-radius: 0.7rem;
+// }
 
 ////////////////////////////////////////////////////////
 /// CITIES PAGE

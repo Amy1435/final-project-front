@@ -90,8 +90,8 @@ const SignUp = () => {
                     </p>
                 </div>
             </div>
-            <div className="log-container">
-                <div className="log">
+            <div className="form-container-new">
+                <div className="form-new">
                     <form onSubmit={handleSubmit}>
                         <div>
                             <div>

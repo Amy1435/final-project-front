@@ -29,7 +29,7 @@ const NavBar = () => {
                 </figure>
                 <menu>
                     <>
-                        <div className="common-links">
+                        <div className="links">
                             <li>
                                 <NavLink to="/cities">Cities</NavLink>
                             </li>
@@ -60,27 +60,29 @@ const NavBar = () => {
                             </>
                         ) : (
                             <>
-                                <li>
-                                    {" "}
-                                    <NavLink to="/user/posts">
-                                        Your experiences
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    {" "}
-                                    <NavLink to="/user/settings">
-                                        Settings
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    {" "}
-                                    <NavLink
-                                        to="/auth/sign-up"
-                                        onClick={handleLogOut}
-                                    >
-                                        Log Out
-                                    </NavLink>
-                                </li>
+                                <div className="links">
+                                    <li>
+                                        {" "}
+                                        <NavLink to="/user/posts">
+                                            Your experiences
+                                        </NavLink>
+                                    </li>
+                                    <li>
+                                        {" "}
+                                        <NavLink to="/user/settings">
+                                            Settings
+                                        </NavLink>
+                                    </li>
+                                    <li>
+                                        {" "}
+                                        <NavLink
+                                            to="/auth/sign-up"
+                                            onClick={handleLogOut}
+                                        >
+                                            Log Out
+                                        </NavLink>
+                                    </li>
+                                </div>
                             </>
                         )}
                     </>
