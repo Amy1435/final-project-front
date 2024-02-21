@@ -58,9 +58,6 @@ const Users = () => {
     return (
         <div className="page data">
             {error && <div>{error}</div>}
-            {!error && users.length === 0 && (
-                <div className="loading">Loading...</div>
-            )}
             {!error && users && (
                 <>
                     <div className="title-text">
@@ -106,13 +103,18 @@ const Users = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="data-container users">
-                        {users.map((user) => (
-                            <div key={user._id} className="users-data">
-                                <User user={user} />
-                            </div>
-                        ))}
-                    </div>
+                    {!users && <div className="no-data">Loading...</div>}
+                    {users.length > 0 ? (
+                        <div className="data-container users">
+                            {users.map((user) => (
+                                <div key={user._id} className="users-data">
+                                    <User user={user} />
+                                </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="no-data">No users available</div>
+                    )}
                 </>
             )}
         </div>

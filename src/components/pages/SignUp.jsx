@@ -31,13 +31,13 @@ const SignUp = () => {
                 email: email,
                 password: password,
                 profile_img: profileImage,
-                from_city: selectedCity,
+                city: selectedCity,
                 age: age,
                 bio: bio,
             })
             .then((res) => {
                 setSuccefullMsg("Sign up successful");
-                console.log(res.data);
+                console.log(`sign up` + res.data);
                 setUsername("");
                 setEmail("");
                 setPassword("");
@@ -149,7 +149,7 @@ const SignUp = () => {
                                         onChange={(e) =>
                                             setSelectedCity(e.target.value)
                                         }
-                                        className="data-input select"
+                                        className="data-input"
                                     >
                                         <option value="" disabled>
                                             Select a city
@@ -157,7 +157,7 @@ const SignUp = () => {
                                         {cities.map((city) => (
                                             <option
                                                 key={city._id}
-                                                value={city.name}
+                                                value={city._id}
                                                 onChange={(e) =>
                                                     setSelectedCity(
                                                         e.target.value

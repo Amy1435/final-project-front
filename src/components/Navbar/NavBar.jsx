@@ -3,6 +3,8 @@ import logo from "../../images/logo.png";
 import { useContext, useEffect } from "react";
 import { Context } from "../../context/UserContext";
 import { handleScroll } from "./handleScroll";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 const NavBar = () => {
     const { user, dispatch } = useContext(Context);
 
@@ -27,6 +29,11 @@ const NavBar = () => {
                         <img src={logo} alt="" />
                     </Link>
                 </figure>
+                <input type="checkbox" id="checkbox" />
+                <label htmlFor="checkbox" className="nav-icon">
+                    <FontAwesomeIcon icon={faBars} id="menu-icon" />
+                    <FontAwesomeIcon icon={faXmark} id="close-icon" />
+                </label>
                 <menu>
                     <>
                         <div className="links">

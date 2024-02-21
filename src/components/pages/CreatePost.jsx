@@ -42,6 +42,7 @@ const CreatePost = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        console.log("Selected City:", selectedCity);
         axios
             .post(`${VITE_URL_API}/posts`, {
                 title: title,
@@ -121,7 +122,7 @@ const CreatePost = () => {
                                         {cities.map((city) => (
                                             <option
                                                 key={city._id}
-                                                value={city.name}
+                                                value={city._id}
                                                 onChange={(e) =>
                                                     setSelectedCity(
                                                         e.target.value
@@ -163,7 +164,7 @@ const CreatePost = () => {
                         <button type="submit">Add</button>
 
                         {(error || succefullMsg) && (
-                            <div>
+                            <div className="error-message">
                                 {error
                                     ? error.response.data.message
                                     : succefullMsg}

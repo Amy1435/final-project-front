@@ -29,13 +29,10 @@ const Post = ({ post }) => {
                                         )}{" "}
                                         -{" "}
                                     </span>
-                                    <span className="city">{post.city}</span>
-                                </div>
-                                <div>
-                                    <span>
-                                        {post.user.username} from{" "}
-                                        {post.user.from_city}{" "}
+                                    <span className="city">
+                                        {post.city.name} -{" "}
                                     </span>
+                                    <span>@{post.user.username}</span>
                                 </div>
                             </div>
                         </div>

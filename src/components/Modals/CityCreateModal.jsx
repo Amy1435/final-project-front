@@ -33,7 +33,7 @@ const CityModal = ({ modalClose, setCities }) => {
             .then((res) => {
                 console.log(res.data);
                 const newCity = res.data;
-                setCities((prevCities) => [...prevCities, ...newCity]);
+                setCities((prevCities) => [...prevCities, newCity]);
                 setSuccess("City created successful");
                 modalClose();
             })

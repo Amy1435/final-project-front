@@ -1,8 +1,6 @@
 import axios from "axios";
 import { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
-import Post from "../singleComponents/Post";
-import User from "../singleComponents/User";
+import { Link, useParams } from "react-router-dom";
 import { Context } from "../../context/UserContext";
 const { VITE_URL_API } = import.meta.env;
 
@@ -14,7 +12,7 @@ const SingleCity = () => {
     const [users, setUsers] = useState({});
     const [error, setError] = useState();
     const { id } = useParams();
-    const name = city.name;
+    console.log(id);
 
     //get city data
     useEffect(() => {
@@ -33,7 +31,7 @@ const SingleCity = () => {
     //get city posts
     useEffect(() => {
         axios
-            .get(`${VITE_URL_API}/posts?city=${name}`)
+            .get(`${VITE_URL_API}/posts?city=${id}`)
             .then((res) => {
                 console.log(res.data);
                 //if user logged in filter
@@ -50,12 +48,12 @@ const SingleCity = () => {
                 console.log(error);
                 setError(true);
             });
-    }, [name, user]);
+    }, [id, user]);
 
     //get city users
     useEffect(() => {
         axios
-            .get(`${VITE_URL_API}/users?city=${name}`)
+            .get(`${VITE_URL_API}/users?city=${id}`)
             .then((res) => {
                 //filter post if logged
                 console.log(res.data);
@@ -72,55 +70,133 @@ const SingleCity = () => {
                 console.log(error);
                 setError(true);
             });
-    }, [name, user]);
+    }, [id, user]);
 
     return (
         <div className="page citys">
-            {error && <div>{error}</div>}
+            <div className="title-text">
+                <div>
+                    <h1>{city.name}</h1>
+                </div>
+                <div>
+                    <p>
+                        Sharing your travel experiences helps create a sense of
+                        community among travelers. Your insights may prove
+                        invaluable to someone planning a similar trip, providing
+                        them with guidance and support. Travel is not just about
+                        places but also about people and cultures. Sharing your
+                        encounters and interactions can foster a greater
+                        understanding of different lifestyles, traditions, and
+                        customs, promoting cultural exchange.
+                    </p>
+                </div>
+            </div>
+            {error && <div className="no-data">Server Error</div>}
+            {!city && <div>Loading...</div>}
 
             {!error && city && (
                 <>
-                    <div className="single-data-container">
-                        <figure>
-                            <img src={city.img} alt="" />
-                        </figure>
-                        <span>Name: {city.name}</span>
-                        <span>Country: {city.country}</span>
-                        <span>Continent: {city.continent}</span>
-                        <span>Population:{city.population}</span>
-                        <span>Internet Speed: {city.internet_speed}</span>
-                        <span>Sefety Level: {city.sefety_level}</span>
-                        <span>
-                            Cost of living- one mounth:{" "}
-                            {city.cost_of_living_month}
-                        </span>
+                    <div className="single-city-container">
+                        <div className="basic-info">
+                            <div className="title">
+                                <span>Basic Information</span>
+                            </div>
+
+                            <div className="data">
+                                <span>Name</span>
+                                <span>{city.name}</span>
+                            </div>
+                            <div className="data">
+                                <span>Country</span>
+                                <span>{city.country}</span>
+                            </div>
+                            <div className="data">
+                                <span>Continent</span>
+                                <span>{city.continent}</span>
+                            </div>
+                            <div className="data">
+                                <span>Population</span>
+                                <span>{city.population} people</span>
+                            </div>
+                        </div>
+                        <div className="nomad-info">
+                            <div className="title">
+                                <span>Digital Nomad Information</span>
+                            </div>
+                            <div className="data">
+                                <span>Internet Speed</span>
+                                <span>{city.internet_speed} Mbps</span>
+                            </div>
+                            <div className="data">
+                                <span>Sefety Level</span>
+                                <span>{city.sefety_level}/10</span>
+                            </div>
+
+                            <div className="data">
+                                <span> Cost of living</span>
+                                <span>
+                                    {" "}
+                                    {city.cost_of_living_month} dollars/ per
+                                    month
+                                </span>
+                            </div>
+                        </div>
+
+                        <div className="city-posts-container">
+                            <div className="title">
+                                <span>Digital Nomad Experiences</span>
+                            </div>
+
+                            {!posts && (
+                                <div className="no-data">Loading...</div>
+                            )}
+                            {posts.length > 0 ? (
+                                posts.map((post) => (
+                                    <div key={post._id} className="city-post">
+                                        <Link to={`/posts/${post._id}`}>
+                                            <figure>
+                                                <img src={post.img} alt="" />
+                                            </figure>
+                                            <span>{post.title}</span>
+                                        </Link>
+                                    </div>
+                                ))
+                            ) : (
+                                <div className="no-data">No Posts yet </div>
+                            )}
+                        </div>
+
+                        <div className="city-users-container">
+                            <div className="title">
+                                <span>Users from this city</span>
+                            </div>
+
+                            {!users && (
+                                <div className="no-data">Loading...</div>
+                            )}
+                            <div className="city-users-grid">
+                                {users.length > 0 ? (
+                                    users.map((user) => (
+                                        <div key={user._id} className="user2">
+                                            <Link to={`/users/${user._id}`}>
+                                                <figure>
+                                                    <img
+                                                        src={user.profile_img}
+                                                        alt=""
+                                                    />
+                                                </figure>
+                                                <span> {user.username}</span>
+                                            </Link>
+                                        </div>
+                                    ))
+                                ) : (
+                                    <div className="no-data">
+                                        No Users from this city{" "}
+                                    </div>
+                                )}
+                            </div>
+                        </div>
                     </div>
-                    {posts.length === 0 && <div>No Posts yet </div>}
-                    {users.length === 0 && <div>No Users from this city </div>}
-                    {posts.length > 0 && (
-                        <div className="page data">
-                            <div className="data-container">
-                                <h1>Digital Nomad experiences</h1>
-                                {posts.map((post) => (
-                                    <div key={post._id}>
-                                        <Post post={post} />
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    )}
-                    {users.length > 0 && (
-                        <div className="page data">
-                            <div className="data-container users">
-                                <h1>Users from this city</h1>
-                                {users.map((user) => (
-                                    <div key={user._id}>
-                                        <User user={user} />
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    )}
                 </>
             )}
         </div>

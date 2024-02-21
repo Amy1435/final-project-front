@@ -58,9 +58,6 @@ const Posts = () => {
     return (
         <div className="page data">
             {error && <div>{error}</div>}
-            {!error && posts.length === 0 && (
-                <div className="loading">Loading...</div>
-            )}
             {!error && posts && (
                 <>
                     <div className="title-text">
@@ -106,13 +103,18 @@ const Posts = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="data-container posts">
-                        {posts.map((post) => (
-                            <div key={post._id} className="posts-data">
-                                <Post post={post} />
-                            </div>
-                        ))}
-                    </div>
+                    {!posts && <div className="no-data">Loading...</div>}
+                    {posts.length > 0 ? (
+                        <div className="data-container posts">
+                            {posts.map((post) => (
+                                <div key={post._id} className="posts-data">
+                                    <Post post={post} />
+                                </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="no-data">No post available</div>
+                    )}
                 </>
             )}
         </div>

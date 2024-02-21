@@ -48,9 +48,6 @@ const Cities = () => {
     return (
         <div className="page data">
             {error && <div>{error}</div>}
-            {!error && cities.length === 0 && (
-                <div className="loading">Loading...</div>
-            )}
 
             {!error && cities && (
                 <>
@@ -97,27 +94,34 @@ const Cities = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="data-container cities">
-                        {cities.map((city) => (
-                            <div key={city._id} className="cities">
-                                <Link to={`/cities/${city._id}`}>
-                                    <figure>
-                                        <img
-                                            src={
-                                                city.img.includes(`https://`)
-                                                    ? city.img
-                                                    : `https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png`
-                                            }
-                                            alt="city-img"
-                                        />
-                                        <div>
-                                            <span>{city.name}</span>
-                                        </div>
-                                    </figure>
-                                </Link>
-                            </div>
-                        ))}
-                    </div>
+                    {!cities && <div className="no-data">Loading...</div>}
+                    {cities.length > 0 ? (
+                        <div className="data-container cities">
+                            {cities.map((city) => (
+                                <div key={city._id} className="cities">
+                                    <Link to={`/cities/${city._id}`}>
+                                        <figure>
+                                            <img
+                                                src={
+                                                    city.img.includes(
+                                                        `https://`
+                                                    )
+                                                        ? city.img
+                                                        : `https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png`
+                                                }
+                                                alt="city-img"
+                                            />
+                                            <div>
+                                                <span>{city.name}</span>
+                                            </div>
+                                        </figure>
+                                    </Link>
+                                </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="no-data">No cities available</div>
+                    )}
                 </>
             )}
         </div>

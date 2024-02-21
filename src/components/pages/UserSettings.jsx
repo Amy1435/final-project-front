@@ -94,55 +94,68 @@ const UserSettings = () => {
                             </p>
                         </div>
                     </div>
-                    <div className="user-settings">
+                    <div className="user-data-container">
                         <div className="user-data">
-                            <figure>
-                                <img src={userData.profile_img} alt="" />
-                            </figure>
-                            <div className="data">
-                                <span>UserName:{userData.username}</span>
+                            {!userData && (
+                                <div className="no-data">...Loading</div>
+                            )}
+                            {userData && (
+                                <>
+                                    <figure>
+                                        <img
+                                            src={userData.profile_img}
+                                            alt=""
+                                        />
+                                    </figure>
+                                    <div className="data">
+                                        <span>
+                                            UserName:{userData.username}
+                                        </span>
 
-                                <span>
-                                    City:{""} {userData.from_city}
-                                </span>
-                                <span>
-                                    Age:{""}
-                                    {userData.age}
-                                </span>
-                                <span>
-                                    User since:{" "}
-                                    {dayjs(userData.createdAt).format(
-                                        "DD/MM/YYYY"
-                                    )}
-                                </span>
-                                <span className="bio">
-                                    Bio:{""} {userData.bio}
-                                </span>
-                            </div>
-                            <div className="btn-container">
-                                <button
-                                    onClick={handleModalEditUser}
-                                    className="btn blue"
-                                >
-                                    Edit
-                                </button>
-                                <button
-                                    className="btn red"
-                                    onClick={handleModalDeleteUser}
-                                >
-                                    Delete
-                                </button>
-                            </div>
-                            <div></div>
+                                        <span>
+                                            City:{""} {userData.from_city}
+                                        </span>
+                                        <span>
+                                            Age:{""}
+                                            {userData.age}
+                                        </span>
+                                        <span>
+                                            User since:{" "}
+                                            {dayjs(userData.createdAt).format(
+                                                "DD/MM/YYYY"
+                                            )}
+                                        </span>
+                                        <span className="bio">
+                                            Bio:{""} {userData.bio}
+                                        </span>
+                                    </div>
+                                    <div className="btn-container">
+                                        <button
+                                            onClick={handleModalEditUser}
+                                            className="btn blue"
+                                        >
+                                            Edit
+                                        </button>
+                                        <button
+                                            className="btn red"
+                                            onClick={handleModalDeleteUser}
+                                        >
+                                            Delete
+                                        </button>
+                                    </div>
+                                </>
+                            )}
                         </div>
 
                         <div className="user-data posts">
                             <div>
-                                <h2>Your experiences</h2>
+                                <h2>Your Posts</h2>
                             </div>
-                            {/* scrivi qualcosa quando gli userPosts non ci sono */}
-                            {userPosts.map((post) => (
-                                <>
+                            {!userPosts && (
+                                <div className="no-data">...Loading</div>
+                            )}
+                            {userPosts && userPosts.length > 0 ? (
+                                userPosts.map((post) => (
                                     <div key={post._id} className="data">
                                         <div className="title">
                                             <h2>{post.title}</h2>
@@ -184,8 +197,10 @@ const UserSettings = () => {
                                             />
                                         )}
                                     </div>
-                                </>
-                            ))}
+                                ))
+                            ) : (
+                                <p className="no-data">No posts yet</p>
+                            )}
                         </div>
                     </div>
                 </>

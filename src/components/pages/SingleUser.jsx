@@ -23,49 +23,82 @@ const SingleUser = () => {
 
     return (
         <div className="page users">
-            {error && <div>{error}</div>}
-
-            {!error && user && (
-                <>
-                    <div className="single-data-container">
-                        <figure>
-                            <img src={user.profile_img} alt="" />
-                        </figure>
-                        <span>UserName:{user.username}</span>
-
-                        <span>
-                            City:{" "}
-                            <Link to={`/cities/${user.city?._id}`}>
-                                {user.from_city}
-                            </Link>
-                        </span>
-                        <span>Age: {user.age}</span>
-                        <span>
-                            User since:{" "}
-                            {dayjs(user.createdAt).format("DD/MM/YYYY")}
-                        </span>
-                        <span>Bio: {user.bio}</span>
-                        <div>
-                            {user.posts && user.posts.length > 0 ? (
+            <>
+                <div className="title-text">
+                    <div>
+                        <h1>{user.username}</h1>
+                    </div>
+                    <div>
+                        <p>
+                            Sharing your travel experiences helps create a sense
+                            of community among travelers. Your insights may
+                            prove invaluable to someone planning a similar trip,
+                            providing them with guidance and support. Travel is
+                            not just about places but also about people and
+                            cultures. Sharing your encounters and interactions
+                            can foster a greater understanding of different
+                            lifestyles, traditions, and customs, promoting
+                            cultural exchange.
+                        </p>
+                    </div>
+                    {error && <div>{error.message}</div>}
+                    {!user && <div>Loading...</div>}
+                </div>
+                {!error && user && (
+                    <div className="user-data-container">
+                        <div className="user-data">
+                            <figure>
+                                <img src={user.profile_img} alt="" />
+                            </figure>
+                            <div className="data">
+                                <span>UserName: {user.username}</span>
                                 <div>
-                                    <span>{user.username} Posts:</span>
-                                    <ul>
-                                        {user.posts.map((post) => (
-                                            <li key={post._id}>
-                                                <Link to={`/posts/${post._id}`}>
-                                                    {post.title}
-                                                </Link>
-                                            </li>
-                                        ))}
-                                    </ul>
+                                    <span>City: </span>
+                                    <span>
+                                        <Link
+                                            to={`/cities/${user.city?._id}`}
+                                            className="city"
+                                        >
+                                            {" "}
+                                            {user.city?.name}
+                                        </Link>
+                                    </span>
                                 </div>
-                            ) : (
-                                <p>No posts available</p>
-                            )}
+                                <span>Age: {user.age}</span>
+
+                                <span>
+                                    User since:{" "}
+                                    {dayjs(user.createdAt).format("DD/MM/YYYY")}
+                                </span>
+                                <span>Bio: {user.bio}</span>
+                            </div>
+                        </div>
+
+                        <div className="user-data posts">
+                            <div>
+                                <h2>{user.username} Posts</h2>
+                            </div>
+                            <div className="post-container">
+                                {user.posts && user.posts.length > 0 ? (
+                                    user.posts.map((post) => (
+                                        <div key={post._id} className="data">
+                                            <Link to={`/posts/${post._id}`}>
+                                                <div className="title-post">
+                                                    <p>{post.title}</p>
+                                                </div>
+                                            </Link>
+                                        </div>
+                                    ))
+                                ) : (
+                                    <p className="no-data">
+                                        {user.username} has no posts
+                                    </p>
+                                )}
+                            </div>
                         </div>
                     </div>
-                </>
-            )}
+                )}
+            </>
         </div>
     );
 };
