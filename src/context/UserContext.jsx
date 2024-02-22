@@ -1,9 +1,19 @@
 import { createContext, useEffect, useReducer } from "react";
 import Reducer from "./Reducer.js";
 
+const storedUser = localStorage.getItem("user");
 const FIRST_STATE = {
-    user: JSON.parse(localStorage.getItem("user")) || null,
+    user: isValidJSON(storedUser) ? JSON.parse(storedUser) : null,
 };
+function isValidJSON(str) {
+    try {
+        JSON.parse(str);
+        return true;
+    } catch (e) {
+        return false;
+    }
+}
+
 export const Context = createContext();
 
 export const ContextProvider = ({ children }) => {

@@ -6,6 +6,7 @@ import UserModal from "../Modals/UserEditModal";
 import UserModalDelete from "../Modals/UserDeleteModal";
 import PostModalDelete from "../Modals/PostDeleteModal";
 import PostModal from "../Modals/PostEditModal";
+import { Link } from "react-router-dom";
 const { VITE_URL_API } = import.meta.env;
 
 const UserSettings = () => {
@@ -41,9 +42,9 @@ const UserSettings = () => {
     useEffect(() => {
         axios
             .get(`${VITE_URL_API}/posts?user=${id}`)
-            .then((response) => {
-                console.log(response.data);
-                setUserPosts(response.data);
+            .then((res) => {
+                setUserPosts(res.data);
+                console.log(res.data);
             })
             .catch((error) => {
                 console.log(error);
@@ -103,8 +104,14 @@ const UserSettings = () => {
                                 <>
                                     <figure>
                                         <img
-                                            src={userData.profile_img}
-                                            alt=""
+                                            src={
+                                                user.profile_img.includes(
+                                                    `https://`
+                                                )
+                                                    ? user.profile_img
+                                                    : `https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png`
+                                            }
+                                            alt="profile_img"
                                         />
                                     </figure>
                                     <div className="data">
@@ -112,9 +119,18 @@ const UserSettings = () => {
                                             UserName:{userData.username}
                                         </span>
 
-                                        <span>
-                                            City:{""} {userData.from_city}
-                                        </span>
+                                        <div>
+                                            <span>From: </span>
+                                            <span>
+                                                <Link
+                                                    to={`/cities/${user.city?._id}`}
+                                                    className="city"
+                                                >
+                                                    {" "}
+                                                    {userData.city?.name}
+                                                </Link>
+                                            </span>
+                                        </div>
                                         <span>
                                             Age:{""}
                                             {userData.age}

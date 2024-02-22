@@ -53,7 +53,7 @@ const CreatePost = () => {
             })
             .then((res) => {
                 setSuccefullMsg(
-                    "Your experience is being scared with other travelers. Thanks!"
+                    "Your experience is being shared with other travelers. Thanks!"
                 );
                 console.log(res.data);
                 setTitle("");

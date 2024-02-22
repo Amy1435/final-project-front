@@ -53,7 +53,7 @@ const SingleUser = () => {
                             <div className="data">
                                 <span>UserName: {user.username}</span>
                                 <div>
-                                    <span>City: </span>
+                                    <span>From: </span>
                                     <span>
                                         <Link
                                             to={`/cities/${user.city?._id}`}

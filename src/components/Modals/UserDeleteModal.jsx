@@ -33,7 +33,7 @@ const UserModalDelete = ({ modalClose, userData }) => {
 
     return (
         <div className="modal-container">
-            <div className="modal">
+            <div className="delete-container">
                 <div>
                     <span>Are you sure, do you want to delete your user?</span>
                 </div>
@@ -41,7 +41,11 @@ const UserModalDelete = ({ modalClose, userData }) => {
                     <button type="submit" className="btn" onClick={handleClick}>
                         Delete
                     </button>
-                    <button onClick={modalClose} type="submit" className="btn">
+                    <button
+                        onClick={modalClose}
+                        type="submit"
+                        className="btn blue"
+                    >
                         Close
                     </button>
                 </div>

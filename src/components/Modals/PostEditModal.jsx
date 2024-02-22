@@ -8,12 +8,13 @@ const PostModal = ({ modalClose, postData, setUserPosts }) => {
     const [formState, setFormState] = useState({
         title: postData.title,
         post: postData.post,
-        city: postData.city,
         img: postData.img,
+        //non permetto di modificare la citta' del post perche' secondo me non ha senso
     });
 
     const id = postData._id;
 
+    //change data
     const handleChange = (e) => {
         setFormState({
             ...formState,
@@ -21,7 +22,7 @@ const PostModal = ({ modalClose, postData, setUserPosts }) => {
         });
     };
 
-    //update user data
+    //update post data
     const handleClick = (e) => {
         e.preventDefault();
         console.log(formState);
@@ -50,61 +51,59 @@ const PostModal = ({ modalClose, postData, setUserPosts }) => {
 
     return (
         <div className="modal-container">
-            <div className="form">
-                <form onSubmit={handleClick}>
-                    <h1>Update Post</h1>
-                    <div className="input-container">
-                        <div>
-                            <span>Title</span>
-                            <input
-                                type="text"
-                                name="title"
-                                required
-                                value={formState.title}
-                                onChange={handleChange}
-                            />
+            <div className="form-container-new">
+                <div className="form-new">
+                    <form onSubmit={handleClick}>
+                        <div className="input-container">
+                            <div>
+                                <span>Title</span>
+                                <input
+                                    type="text"
+                                    name="title"
+                                    required
+                                    value={formState.title}
+                                    onChange={handleChange}
+                                    className="data-input"
+                                />
+                            </div>
+                            <div>
+                                <span>Image</span>
+                                <input
+                                    type="text"
+                                    name="img"
+                                    required
+                                    value={formState.img}
+                                    onChange={handleChange}
+                                    className="data-input"
+                                />
+                            </div>
+                            <div>
+                                <span>Post</span>
+                                <textarea
+                                    name="post"
+                                    required
+                                    value={formState.post}
+                                    onChange={handleChange}
+                                    className="data-input"
+                                />
+                            </div>
                         </div>
-                        <div>
-                            <span>City</span>
-                            <input
-                                type="text"
-                                name="city"
-                                required
-                                value={formState.city}
-                                onChange={handleChange}
-                            />
+                        <div className="btn-container">
+                            <button type="submit" className="btn">
+                                Update
+                            </button>
+                            <button onClick={modalClose} className="btn blue">
+                                Close
+                            </button>
                         </div>
-                        <div>
-                            <span>Image</span>
-                            <input
-                                type="text"
-                                name="img"
-                                required
-                                value={formState.img}
-                                onChange={handleChange}
-                            />
-                        </div>
-                        <div>
-                            <span>Post</span>
-                            <textarea
-                                name="post"
-                                required
-                                value={formState.post}
-                                onChange={handleChange}
-                            />
-                        </div>
-                    </div>
-                    <div className="btn-modal">
-                        <button type="submit">Update</button>
-                        <button onClick={modalClose}>Close</button>
-                    </div>
-                    {success && <div className="error">{success}</div>}
-                    {error && (
-                        <div className="error">
-                            {error.response.data.message}
-                        </div>
-                    )}
-                </form>
+                        {success && <div className="error">{success}</div>}
+                        {error && (
+                            <div className="error">
+                                {error.response.data.message}
+                            </div>
+                        )}
+                    </form>
+                </div>
             </div>
         </div>
     );

@@ -71,13 +71,13 @@ const NavBar = () => {
                                     <li>
                                         {" "}
                                         <NavLink to="/user/posts">
-                                            Your experiences
+                                            Add Experience
                                         </NavLink>
                                     </li>
                                     <li>
                                         {" "}
                                         <NavLink to="/user/settings">
-                                            Settings
+                                            My Account
                                         </NavLink>
                                     </li>
                                     <li>

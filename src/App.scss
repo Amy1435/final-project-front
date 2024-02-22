@@ -620,15 +620,19 @@ nav.sticky {
     align-items: center;
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.4);
-}
 
-// .error {
-//     color: #de2b52;
-//     background-color: rgba(222, 43, 82, 0.3);
-//     padding: 0.7rem;
-//     width: 80%;
-//     border-radius: 0.7rem;
-// }
+    //delete modal
+    .delete-container {
+        border-radius: 10px;
+        box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3);
+        width: 325px;
+        background-color: white;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+}
 
 ////////////////////////////////////////////////////////
 /// CITIES PAGE

@@ -26,7 +26,7 @@ const PostModalDelete = ({ modalClose, postId }) => {
 
     return (
         <div className="modal-container">
-            <div className="modal">
+            <div className="delete-container">
                 <div>
                     <span>Are you sure, do you want to delete this post?</span>
                 </div>
@@ -34,7 +34,11 @@ const PostModalDelete = ({ modalClose, postId }) => {
                     <button type="submit" className="btn" onClick={handleClick}>
                         Delete
                     </button>
-                    <button onClick={modalClose} type="submit" className="btn">
+                    <button
+                        onClick={modalClose}
+                        type="submit"
+                        className="btn blue"
+                    >
                         Close
                     </button>
                 </div>
