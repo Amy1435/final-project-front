@@ -82,7 +82,7 @@ const LogIn = () => {
                         <div className="not-member">
                             <span>
                                 Not a member yet?{" "}
-                                <Link to={`auth/sign-up`}>Sign Up</Link>
+                                <Link to={`/auth/sign-up`}>Sign Up</Link>
                             </span>
                         </div>
                         {error && (

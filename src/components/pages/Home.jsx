@@ -2,7 +2,7 @@ import phone from "../../images/phone-2.png";
 const Home = () => {
     return (
         <>
-            <section className="home">
+            <header className="home">
                 <div className="home-text">
                     <div className="text">
                         <h1>
@@ -17,7 +17,7 @@ const Home = () => {
                         <img src={phone} alt="" />
                     </figure>
                 </div>
-            </section>
+            </header>
         </>
     );
 };

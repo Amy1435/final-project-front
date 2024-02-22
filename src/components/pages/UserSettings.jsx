@@ -126,7 +126,7 @@ const UserSettings = () => {
                                             )}
                                         </span>
                                         <span className="bio">
-                                            Bio:{""} {userData.bio}
+                                            {""} {userData.bio}
                                         </span>
                                     </div>
                                     <div className="btn-container">
@@ -148,8 +148,8 @@ const UserSettings = () => {
                         </div>
 
                         <div className="user-data posts">
-                            <div>
-                                <h2>Your Posts</h2>
+                            <div className="title">
+                                <span>Your Posts</span>
                             </div>
                             {!userPosts && (
                                 <div className="no-data">...Loading</div>
@@ -157,7 +157,7 @@ const UserSettings = () => {
                             {userPosts && userPosts.length > 0 ? (
                                 userPosts.map((post) => (
                                     <div key={post._id} className="data">
-                                        <div className="title">
+                                        <div className="title-post">
                                             <h2>{post.title}</h2>
                                         </div>
                                         <div className="user-post">

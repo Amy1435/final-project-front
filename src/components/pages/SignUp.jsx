@@ -202,7 +202,7 @@ const SignUp = () => {
                         <div className="not-member">
                             <span>
                                 Already a member?{" "}
-                                <Link to={`auth/log-in`}>Sign Up</Link>
+                                <Link to={`/auth/log-in`}>Log in</Link>
                             </span>
                         </div>
                         {(error || succefullMsg) && (
