@@ -18,13 +18,15 @@ const SignUp = () => {
     const [succefullMsg, setSuccefullMsg] = useState("");
     //modals
     const [modalCreateCity, setModalCreateCity] = useState(false);
-
+    //loading
+    const [isLoading, setIsLoading] = useState(false);
     //navigate
     const navigate = useNavigate();
 
     //sign up user
     const handleSubmit = (e) => {
         e.preventDefault();
+        setIsLoading(true);
         axios
             .post(`${VITE_URL_API}/auth/sign-up`, {
                 username: username,
@@ -51,6 +53,7 @@ const SignUp = () => {
                 console.error(error);
                 setError(error);
             });
+        setIsLoading(false);
     };
 
     //get cities
@@ -74,7 +77,7 @@ const SignUp = () => {
 
     return (
         <>
-            <div className="title-text">
+            <section className="title-text">
                 <div>
                     <h1>Sign Up</h1>
                 </div>
@@ -89,8 +92,8 @@ const SignUp = () => {
                         essentially unchanged.
                     </p>
                 </div>
-            </div>
-            <div className="form-container-new">
+            </section>
+            <section className="form-container-new">
                 <div className="form-new">
                     <form onSubmit={handleSubmit}>
                         <div>
@@ -198,7 +201,13 @@ const SignUp = () => {
                                 />
                             </div>
                         </div>
-                        <button type="submit">Sign Up</button>
+                        <button
+                            type="submit"
+                            className={isLoading ? "loading" : ""}
+                            disabled={isLoading}
+                        >
+                            Sign Up
+                        </button>
                         <div className="not-member">
                             <span>
                                 Already a member?{" "}
@@ -212,7 +221,7 @@ const SignUp = () => {
                         )}
                     </form>
                 </div>
-            </div>
+            </section>
             {modalCreateCity && (
                 <CityModal
                     modalClose={() => {

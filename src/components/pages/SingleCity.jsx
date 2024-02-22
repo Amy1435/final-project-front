@@ -110,7 +110,7 @@ const SingleCity = () => {
                         )}
                         {!isLoading && city && (
                             <>
-                                <div className="basic-info">
+                                <section className="basic-info">
                                     <div className="title">
                                         <span>Basic Information</span>
                                     </div>
@@ -131,8 +131,8 @@ const SingleCity = () => {
                                         <span>Population</span>
                                         <span>{city.population} people</span>
                                     </div>
-                                </div>
-                                <div className="nomad-info">
+                                </section>
+                                <section className="nomad-info">
                                     <div className="title">
                                         <span>Digital Nomad Information</span>
                                     </div>
@@ -153,11 +153,11 @@ const SingleCity = () => {
                                             per month
                                         </span>
                                     </div>
-                                </div>
+                                </section>
                             </>
                         )}
 
-                        <div className="city-posts-container">
+                        <section className="city-posts-container">
                             <div className="title">
                                 <span>Digital Nomad Experiences</span>
                             </div>
@@ -180,9 +180,9 @@ const SingleCity = () => {
                                         </Link>
                                     </div>
                                 ))}
-                        </div>
+                        </section>
 
-                        <div className="city-users-container">
+                        <section className="city-users-container">
                             <div className="title">
                                 <span>Users from this city</span>
                             </div>
@@ -209,7 +209,7 @@ const SingleCity = () => {
                                         </div>
                                     ))}
                             </div>
-                        </div>
+                        </section>
                     </div>
                 </>
             )}

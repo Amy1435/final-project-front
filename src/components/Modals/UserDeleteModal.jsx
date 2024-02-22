@@ -7,6 +7,8 @@ import { Context } from "../../context/UserContext";
 const UserModalDelete = ({ modalClose, userData }) => {
     const [success, setSuccess] = useState("");
     const [error, setError] = useState("");
+    //loading disable btn
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const { dispatch } = useContext(Context);
 
@@ -15,7 +17,7 @@ const UserModalDelete = ({ modalClose, userData }) => {
     //delete user
     const handleClick = (e) => {
         e.preventDefault();
-
+        setIsLoading(true);
         axios
             .delete(`${VITE_URL_API}/users/${id}`)
             .then(() => {
@@ -28,7 +30,7 @@ const UserModalDelete = ({ modalClose, userData }) => {
                 setError(error);
             });
 
-        setError("");
+        setIsLoading(false);
     };
 
     return (
@@ -38,7 +40,12 @@ const UserModalDelete = ({ modalClose, userData }) => {
                     <span>Are you sure, do you want to delete your user?</span>
                 </div>
                 <div className="btn-container">
-                    <button type="submit" className="btn" onClick={handleClick}>
+                    <button
+                        type="submit"
+                        className={isLoading ? "loading" : "btn"}
+                        disabled={isLoading}
+                        onClick={handleClick}
+                    >
                         Delete
                     </button>
                     <button

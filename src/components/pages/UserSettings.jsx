@@ -103,7 +103,7 @@ const UserSettings = () => {
                 {error && <div className="no-data">Server Error</div>}
                 {!error && (
                     <div className="user-data-container">
-                        <div className="user-data">
+                        <section className="user-data">
                             {isLoading && (
                                 <div className="no-data">Loading...</div>
                             )}
@@ -172,9 +172,9 @@ const UserSettings = () => {
                                     </div>
                                 </>
                             )}
-                        </div>
+                        </section>
 
-                        <div className="user-data posts">
+                        <section className="user-data posts">
                             <div className="title">
                                 <span>Your Posts</span>
                             </div>
@@ -230,7 +230,7 @@ const UserSettings = () => {
                                         )}
                                     </div>
                                 ))}
-                        </div>
+                        </section>
                     </div>
                 )}
             </>

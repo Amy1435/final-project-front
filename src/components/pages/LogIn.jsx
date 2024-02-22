@@ -9,12 +9,13 @@ const LogIn = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState();
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const { dispatch } = useContext(Context);
 
-    //aggiungi is loading per il bottone
     const handleSubmit = (e) => {
         e.preventDefault();
+        setIsLoading(true);
         try {
             axios
                 .post(`${VITE_URL_API}/auth/log-in`, {
@@ -35,11 +36,13 @@ const LogIn = () => {
         } catch (error) {
             console.log(error);
             setError(error);
+        } finally {
+            setIsLoading(false);
         }
     };
     return (
         <>
-            <div className="title-text">
+            <section className="title-text">
                 <div>
                     <h1>Log in</h1>
                 </div>
@@ -54,8 +57,8 @@ const LogIn = () => {
                         essentially unchanged.
                     </p>
                 </div>
-            </div>
-            <div className="form-container-new">
+            </section>
+            <section className="form-container-new">
                 <div className="form-new">
                     <form onSubmit={handleSubmit}>
                         <div>
@@ -78,7 +81,13 @@ const LogIn = () => {
                                 className="data-input"
                             />
                         </div>
-                        <button type="submit">Log in</button>
+                        <button
+                            type="submit"
+                            className={isLoading ? "loading" : ""}
+                            disabled={isLoading}
+                        >
+                            Log in
+                        </button>
                         <div className="not-member">
                             <span>
                                 Not a member yet?{" "}
@@ -92,7 +101,7 @@ const LogIn = () => {
                         )}
                     </form>
                 </div>
-            </div>
+            </section>
         </>
     );
 };

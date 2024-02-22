@@ -519,6 +519,10 @@ nav.sticky {
     .btn.blue {
         background-color: #4a90e2;
     }
+    .loading {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
 }
 
 .user-posts {
@@ -581,7 +585,10 @@ nav.sticky {
                 border-radius: 5px;
                 cursor: pointer;
             }
-
+            .loading {
+                opacity: 0.7;
+                cursor: not-allowed;
+            }
             .not-member {
                 text-align: center;
                 padding: 10px;

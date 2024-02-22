@@ -5,6 +5,8 @@ const { VITE_URL_API } = import.meta.env;
 const CityModal = ({ modalClose, setCities }) => {
     const [success, setSuccess] = useState("");
     const [error, setError] = useState("");
+    //loading disable btn
+    const [isLoading, setIsLoading] = useState(false);
     const [formState, setFormState] = useState({
         name: "",
         country: "",
@@ -27,7 +29,7 @@ const CityModal = ({ modalClose, setCities }) => {
     const handleClick = (e) => {
         e.preventDefault();
         console.log(formState);
-
+        setIsLoading(true);
         axios
             .post(`${VITE_URL_API}/cities`, formState)
             .then((res) => {
@@ -41,6 +43,7 @@ const CityModal = ({ modalClose, setCities }) => {
                 console.error(error);
                 setError(error);
             });
+        setIsLoading(false);
     };
 
     return (
@@ -147,7 +150,11 @@ const CityModal = ({ modalClose, setCities }) => {
                             </div>
                         </div>
                         <div className="btn-container">
-                            <button type="submit" className="btn blue">
+                            <button
+                                type="submit"
+                                className={isLoading ? "loading" : "btn blue"}
+                                disabled={isLoading}
+                            >
                                 Create
                             </button>
                             <button onClick={modalClose} className="btn">

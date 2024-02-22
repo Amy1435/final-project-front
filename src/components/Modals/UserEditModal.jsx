@@ -7,6 +7,8 @@ const { VITE_URL_API } = import.meta.env;
 const UserModal = ({ modalClose, userData, setUserData }) => {
     const [success, setSuccess] = useState("");
     const [error, setError] = useState("");
+    //loading disable btn
+    const [isLoading, setIsLoading] = useState(false);
     const [formState, setFormState] = useState({
         username: userData.username,
         profile_img: userData.profile_img,
@@ -55,6 +57,7 @@ const UserModal = ({ modalClose, userData, setUserData }) => {
     const handleClick = (e) => {
         e.preventDefault();
         console.log(formState);
+        setIsLoading(true);
         axios
             .patch(`${VITE_URL_API}/users/${id}`, {
                 username: formState.username,
@@ -82,6 +85,7 @@ const UserModal = ({ modalClose, userData, setUserData }) => {
                 console.error(error);
                 setError(error);
             });
+        setIsLoading(false);
     };
 
     return (
@@ -192,7 +196,13 @@ const UserModal = ({ modalClose, userData, setUserData }) => {
                                 </div>
                             </div>
                             <div className="btn-container">
-                                <button type="submit" className="btn blue">
+                                <button
+                                    type="submit"
+                                    className={
+                                        isLoading ? "loading" : "btn blue"
+                                    }
+                                    disabled={isLoading}
+                                >
                                     Update
                                 </button>
                                 <button

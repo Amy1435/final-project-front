@@ -52,7 +52,7 @@ const SingleUser = () => {
                     )}
                     {!error && !isLoading && user && (
                         <>
-                            <div className="user-data">
+                            <section className="user-data">
                                 <figure>
                                     <img
                                         src={
@@ -89,9 +89,9 @@ const SingleUser = () => {
                                     </span>
                                     <span>{user.bio}</span>
                                 </div>
-                            </div>
+                            </section>
 
-                            <div className="user-data posts">
+                            <section className="user-data posts">
                                 <div>
                                     <h2>{user.username} Posts</h2>
                                 </div>
@@ -119,7 +119,7 @@ const SingleUser = () => {
                                             </div>
                                         ))}
                                 </div>
-                            </div>
+                            </section>
                         </>
                     )}
                 </div>
