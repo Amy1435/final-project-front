@@ -11,18 +11,22 @@ const SingleCity = () => {
     const [posts, setPosts] = useState({});
     const [users, setUsers] = useState({});
     const [error, setError] = useState();
+    //Loading
+    const [isLoading, setIsLoading] = useState(true);
+
     const { id } = useParams();
-    console.log(id);
 
     //get city data
     useEffect(() => {
         axios
             .get(`${VITE_URL_API}/cities/${id}`)
             .then((res) => {
+                setIsLoading(false);
                 console.log(res.data);
                 setCity(res.data);
             })
             .catch((error) => {
+                setIsLoading(false);
                 console.log(error);
                 setError(true);
             });
@@ -33,6 +37,7 @@ const SingleCity = () => {
         axios
             .get(`${VITE_URL_API}/posts?city=${id}`)
             .then((res) => {
+                setIsLoading(false);
                 console.log(res.data);
                 //if user logged in filter
                 if (user) {
@@ -45,6 +50,7 @@ const SingleCity = () => {
                 }
             })
             .catch((error) => {
+                setIsLoading(false);
                 console.log(error);
                 setError(true);
             });
@@ -55,6 +61,7 @@ const SingleCity = () => {
         axios
             .get(`${VITE_URL_API}/users?city=${id}`)
             .then((res) => {
+                setIsLoading(false);
                 //filter post if logged
                 console.log(res.data);
                 if (user) {
@@ -67,6 +74,7 @@ const SingleCity = () => {
                 }
             })
             .catch((error) => {
+                setIsLoading(false);
                 console.log(error);
                 setError(true);
             });
@@ -92,65 +100,76 @@ const SingleCity = () => {
                 </div>
             </div>
             {error && <div className="no-data">Server Error</div>}
-            {!city && <div>Loading...</div>}
 
-            {!error && city && (
+            {!error && (
                 <>
                     <div className="single-city-container">
-                        <div className="basic-info">
-                            <div className="title">
-                                <span>Basic Information</span>
-                            </div>
+                        {isLoading && <div className="no-data">Loading...</div>}
+                        {!isLoading && city.length === 0 && (
+                            <div className="no-data">No Post available</div>
+                        )}
+                        {!isLoading && city && (
+                            <>
+                                <div className="basic-info">
+                                    <div className="title">
+                                        <span>Basic Information</span>
+                                    </div>
 
-                            <div className="data">
-                                <span>Name</span>
-                                <span>{city.name}</span>
-                            </div>
-                            <div className="data">
-                                <span>Country</span>
-                                <span>{city.country}</span>
-                            </div>
-                            <div className="data">
-                                <span>Continent</span>
-                                <span>{city.continent}</span>
-                            </div>
-                            <div className="data">
-                                <span>Population</span>
-                                <span>{city.population} people</span>
-                            </div>
-                        </div>
-                        <div className="nomad-info">
-                            <div className="title">
-                                <span>Digital Nomad Information</span>
-                            </div>
-                            <div className="data">
-                                <span>Internet Speed</span>
-                                <span>{city.internet_speed} Mbps</span>
-                            </div>
-                            <div className="data">
-                                <span>Sefety Level</span>
-                                <span>{city.sefety_level}/10</span>
-                            </div>
+                                    <div className="data">
+                                        <span>Name</span>
+                                        <span>{city.name}</span>
+                                    </div>
+                                    <div className="data">
+                                        <span>Country</span>
+                                        <span>{city.country}</span>
+                                    </div>
+                                    <div className="data">
+                                        <span>Continent</span>
+                                        <span>{city.continent}</span>
+                                    </div>
+                                    <div className="data">
+                                        <span>Population</span>
+                                        <span>{city.population} people</span>
+                                    </div>
+                                </div>
+                                <div className="nomad-info">
+                                    <div className="title">
+                                        <span>Digital Nomad Information</span>
+                                    </div>
+                                    <div className="data">
+                                        <span>Internet Speed</span>
+                                        <span>{city.internet_speed} Mbps</span>
+                                    </div>
+                                    <div className="data">
+                                        <span>Sefety Level</span>
+                                        <span>{city.sefety_level}/10</span>
+                                    </div>
 
-                            <div className="data">
-                                <span> Cost of living</span>
-                                <span>
-                                    {" "}
-                                    {city.cost_of_living_month} dollars/ per
-                                    month
-                                </span>
-                            </div>
-                        </div>
+                                    <div className="data">
+                                        <span> Cost of living</span>
+                                        <span>
+                                            {" "}
+                                            {city.cost_of_living_month} dollars/
+                                            per month
+                                        </span>
+                                    </div>
+                                </div>
+                            </>
+                        )}
 
                         <div className="city-posts-container">
                             <div className="title">
                                 <span>Digital Nomad Experiences</span>
                             </div>
 
-                            {!posts && (
+                            {isLoading && (
                                 <div className="no-data">Loading...</div>
                             )}
-                            {posts.length > 0 ? (
+                            {!isLoading && posts.length === 0 && (
+                                <div className="no-data">No Post available</div>
+                            )}
+                            {!isLoading &&
+                                posts.length > 0 &&
                                 posts.map((post) => (
                                     <div key={post._id} className="city-post">
                                         <Link to={`/posts/${post._id}`}>
@@ -160,22 +179,22 @@ const SingleCity = () => {
                                             <span>{post.title}</span>
                                         </Link>
                                     </div>
-                                ))
-                            ) : (
-                                <div className="no-data">No Posts yet </div>
-                            )}
+                                ))}
                         </div>
 
                         <div className="city-users-container">
                             <div className="title">
                                 <span>Users from this city</span>
                             </div>
-
-                            {!users && (
+                            {isLoading && (
                                 <div className="no-data">Loading...</div>
                             )}
+                            {!isLoading && users.length === 0 && (
+                                <div className="no-data">No Post available</div>
+                            )}
                             <div className="city-users-grid">
-                                {users.length > 0 ? (
+                                {!isLoading &&
+                                    users.length > 0 &&
                                     users.map((user) => (
                                         <div key={user._id} className="user2">
                                             <Link to={`/users/${user._id}`}>
@@ -188,12 +207,7 @@ const SingleCity = () => {
                                                 <span> {user.username}</span>
                                             </Link>
                                         </div>
-                                    ))
-                                ) : (
-                                    <div className="no-data">
-                                        No Users from this city{" "}
-                                    </div>
-                                )}
+                                    ))}
                             </div>
                         </div>
                     </div>

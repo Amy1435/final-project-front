@@ -689,7 +689,7 @@ nav.sticky {
 .single-city-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
-
+    padding: 1rem;
     max-width: 1200px;
     margin: 2rem auto;
     gap: 1rem;
@@ -825,6 +825,20 @@ nav.sticky {
             }
         }
     }
+
+    .single-city-container {
+        max-width: 50%;
+        .basic-info,
+        .nomad-info {
+            .data {
+                font-size: 1rem;
+            }
+        }
+    }
+
+    .single-post-container .post {
+        width: 85%;
+    }
 }
 
 @media only screen and (max-width: 950px) {
@@ -889,6 +903,12 @@ nav.sticky {
             }
         }
     }
+    .single-city-container {
+        max-width: 70%;
+    }
+    .user-data-container {
+        max-width: 70%;
+    }
 }
 
 //MEDIA QUERY TABLET
@@ -905,8 +925,25 @@ nav.sticky {
             width: 100%;
         }
     }
+    .single-city-container {
+        grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+        .basic-info,
+        .nomad-info,
+        .city-posts-container,
+        .city-users-container {
+            .title {
+                font-size: 1.4rem;
+            }
+            .data {
+                font-size: 0.7rem;
+            }
+        }
+    }
+    .single-post-container .post {
+        width: 90%;
+    }
 }
-//MEDIA QUERY MOBILE 480
+//MEDIA QUERY 480
 @media only screen and (max-width: 480px) {
     .home {
         .home-text {
@@ -923,9 +960,52 @@ nav.sticky {
     }
 
     .title-text {
-        min-width: 370px;
+        min-width: 240px;
+        height: auto;
     }
     nav .nav-icon {
         right: 9%;
+    }
+    nav menu li a {
+        font-size: 1rem;
+    }
+    .data .search-filter .searchBox {
+        width: 50%;
+    }
+    .single-city-container {
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        .basic-info,
+        .nomad-info,
+        .city-posts-container,
+        .city-users-container {
+            .title {
+                font-size: 1.2rem;
+            }
+            .data {
+                font-size: 0.6rem;
+            }
+            .city-post {
+                a {
+                    font-size: 1rem;
+                }
+            }
+        }
+    }
+    .single-post-container {
+        margin: 1.5rem;
+        .post {
+            width: 98%;
+        }
+    }
+}
+
+//MEDIA QUERY MOBILE 390
+@media only screen and (max-width: 480px) {
+    .data-container.posts {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+    .user-data-container {
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        padding: 0rem 2rem 3rem 2rem;
     }
 }

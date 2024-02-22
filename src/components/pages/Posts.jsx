@@ -14,7 +14,8 @@ const Posts = () => {
 
     const [posts, setPosts] = useState([]);
     const [error, setError] = useState("");
-
+    //Loading
+    const [isLoading, setIsLoading] = useState(true);
     //search by city
     const [city, setCity] = useState("");
     //reset
@@ -24,8 +25,9 @@ const Posts = () => {
         axios
             .get(`${VITE_URL_API}/posts`)
             .then((res) => {
-                //filter post if logged
+                setIsLoading(false);
                 console.log(res.data);
+                //filter post if logged
                 if (user) {
                     const filterPosts = res.data.filter(
                         (post) => post.user._id !== user._id
@@ -40,13 +42,14 @@ const Posts = () => {
             .catch((error) => {
                 console.log(error);
                 setError(true);
+                setIsLoading(false);
             });
     }, [user]);
 
     //search by city
     const handleSearch = (name) => {
         const cityName = name[0].toUpperCase() + name.slice(1);
-        const filter = posts.filter((post) => post.city === cityName);
+        const filter = posts.filter((post) => post.city.name === cityName);
         setPosts(filter);
     };
 
@@ -103,8 +106,11 @@ const Posts = () => {
                             </div>
                         </div>
                     </div>
-                    {!posts && <div className="no-data">Loading...</div>}
-                    {posts.length > 0 ? (
+                    {isLoading && <div className="no-data">Loading...</div>}
+                    {!isLoading && posts.length === 0 && (
+                        <div className="no-data">No users</div>
+                    )}
+                    {!isLoading && posts.length > 0 && (
                         <div className="data-container posts">
                             {posts.map((post) => (
                                 <div key={post._id} className="posts-data">
@@ -112,8 +118,6 @@ const Posts = () => {
                                 </div>
                             ))}
                         </div>
-                    ) : (
-                        <div className="no-data">No post available</div>
                     )}
                 </>
             )}

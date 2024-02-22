@@ -19,7 +19,10 @@ const UserSettings = () => {
     //modal posts
     const [modalEditOpenPost, setModalEditOpenPost] = useState(false);
     const [modalDeleteOpenPost, setModalDeleteOpenPost] = useState(false);
+    //error
     const [error, setError] = useState();
+    //Loading
+    const [isLoading, setIsLoading] = useState(true);
     //post to edit or eliminate
     const [userPosts, setUserPosts] = useState([]);
     const id = user._id;
@@ -29,10 +32,12 @@ const UserSettings = () => {
         axios
             .get(`${VITE_URL_API}/users/${id}`)
             .then((res) => {
+                setIsLoading(false);
                 console.log(res.data);
                 setUserData(res.data);
             })
             .catch((error) => {
+                setIsLoading(false);
                 console.log(error);
                 setError(true);
             });
@@ -43,10 +48,12 @@ const UserSettings = () => {
         axios
             .get(`${VITE_URL_API}/posts?user=${id}`)
             .then((res) => {
+                setIsLoading(false);
                 setUserPosts(res.data);
                 console.log(res.data);
             })
             .catch((error) => {
+                setIsLoading(false);
                 console.log(error);
                 setError(true);
             });
@@ -74,33 +81,37 @@ const UserSettings = () => {
 
     return (
         <>
-            {!error && userData && (
-                <>
-                    <div className="title-text">
-                        <div>
-                            <h1>User Settings</h1>
-                        </div>
-                        <div>
-                            <p>
-                                Sharing your travel experiences helps create a
-                                sense of community among travelers. Your
-                                insights may prove invaluable to someone
-                                planning a similar trip, providing them with
-                                guidance and support. Travel is not just about
-                                places but also about people and cultures.
-                                Sharing your encounters and interactions can
-                                foster a greater understanding of different
-                                lifestyles, traditions, and customs, promoting
-                                cultural exchange.
-                            </p>
-                        </div>
+            <>
+                <div className="title-text">
+                    <div>
+                        <h1>User Settings</h1>
                     </div>
+                    <div>
+                        <p>
+                            Sharing your travel experiences helps create a sense
+                            of community among travelers. Your insights may
+                            prove invaluable to someone planning a similar trip,
+                            providing them with guidance and support. Travel is
+                            not just about places but also about people and
+                            cultures. Sharing your encounters and interactions
+                            can foster a greater understanding of different
+                            lifestyles, traditions, and customs, promoting
+                            cultural exchange.
+                        </p>
+                    </div>
+                </div>
+                {error && <div className="no-data">Server Error</div>}
+                {!error && (
                     <div className="user-data-container">
                         <div className="user-data">
-                            {!userData && (
-                                <div className="no-data">...Loading</div>
+                            {isLoading && (
+                                <div className="no-data">Loading...</div>
                             )}
-                            {userData && (
+                            {!isLoading && userData?.length === 0 && (
+                                <div className="no-data">No Post available</div>
+                            )}
+
+                            {!isLoading && userData && (
                                 <>
                                     <figure>
                                         <img
@@ -167,10 +178,15 @@ const UserSettings = () => {
                             <div className="title">
                                 <span>Your Posts</span>
                             </div>
-                            {!userPosts && (
-                                <div className="no-data">...Loading</div>
+                            {isLoading && (
+                                <div className="no-data">Loading...</div>
                             )}
-                            {userPosts && userPosts.length > 0 ? (
+                            {!isLoading && userPosts?.length === 0 && (
+                                <div className="no-data">No Post available</div>
+                            )}
+
+                            {userPosts &&
+                                userPosts?.length > 0 &&
                                 userPosts.map((post) => (
                                     <div key={post._id} className="data">
                                         <div className="title-post">
@@ -213,14 +229,11 @@ const UserSettings = () => {
                                             />
                                         )}
                                     </div>
-                                ))
-                            ) : (
-                                <p className="no-data">No posts yet</p>
-                            )}
+                                ))}
                         </div>
                     </div>
-                </>
-            )}
+                )}
+            </>
             {modalEditOpenUser && (
                 <UserModal
                     modalClose={() => {

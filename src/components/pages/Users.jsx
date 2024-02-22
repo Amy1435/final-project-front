@@ -15,6 +15,8 @@ const Users = () => {
     const [users, setUsers] = useState([]);
     const [error, setError] = useState();
 
+    //Loading
+    const [isLoading, setIsLoading] = useState(true);
     //search by city
     const [city, setCity] = useState("");
     //reset
@@ -24,6 +26,8 @@ const Users = () => {
         axios
             .get(`${VITE_URL_API}/users`)
             .then((res) => {
+                setIsLoading(false);
+                console.log(res.data);
                 //remove the user logged in from the user list
                 if (user) {
                     const filteredUsers = res.data.filter(
@@ -39,13 +43,14 @@ const Users = () => {
             .catch((error) => {
                 console.log(error);
                 setError(true);
+                setIsLoading(false);
             });
     }, [user]);
 
     //search by city
     const handleSearch = (name) => {
         const cityName = name[0].toUpperCase() + name.slice(1);
-        const filter = users.filter((user) => user.from_city === cityName);
+        const filter = users.filter((user) => user.city.name === cityName);
         setUsers(filter);
     };
 
@@ -103,8 +108,11 @@ const Users = () => {
                             </div>
                         </div>
                     </div>
-                    {!users && <div className="no-data">Loading...</div>}
-                    {users.length > 0 ? (
+                    {isLoading && <div className="no-data">Loading...</div>}
+                    {!isLoading && users.length === 0 && (
+                        <div className="no-data">No users</div>
+                    )}
+                    {!isLoading && users.length > 0 && (
                         <div className="data-container users">
                             {users.map((user) => (
                                 <div key={user._id} className="users-data">
@@ -112,8 +120,6 @@ const Users = () => {
                                 </div>
                             ))}
                         </div>
-                    ) : (
-                        <div className="no-data">No users available</div>
                     )}
                 </>
             )}

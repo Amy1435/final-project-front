@@ -11,7 +11,8 @@ import {
 const Cities = () => {
     const [cities, setCities] = useState([]);
     const [error, setError] = useState();
-
+    //Loading
+    const [isLoading, setIsLoading] = useState(true);
     //search by city
     const [city, setCity] = useState("");
     //reset
@@ -21,12 +22,14 @@ const Cities = () => {
     useEffect(() => {
         axios
             .get(`${VITE_URL_API}/cities`)
-            .then((response) => {
-                console.log(response.data);
-                setCities(response.data);
-                setReset(response.data);
+            .then((res) => {
+                setIsLoading(false);
+                console.log(res.data);
+                setCities(res.data);
+                setReset(res.data);
             })
             .catch((error) => {
+                setIsLoading(false);
                 console.log(error);
                 setError(true);
             });
@@ -94,8 +97,11 @@ const Cities = () => {
                             </div>
                         </div>
                     </div>
-                    {!cities && <div className="no-data">Loading...</div>}
-                    {cities.length > 0 ? (
+                    {isLoading && <div className="no-data">Loading...</div>}
+                    {!isLoading && cities.length === 0 && (
+                        <div className="no-data">No users</div>
+                    )}
+                    {!isLoading && cities.length > 0 && (
                         <div className="data-container cities">
                             {cities.map((city) => (
                                 <div key={city._id} className="cities">
@@ -119,8 +125,6 @@ const Cities = () => {
                                 </div>
                             ))}
                         </div>
-                    ) : (
-                        <div className="no-data">No cities available</div>
                     )}
                 </>
             )}

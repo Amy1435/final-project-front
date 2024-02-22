@@ -7,15 +7,19 @@ const { VITE_URL_API } = import.meta.env;
 const SinglePost = () => {
     const [post, setPost] = useState({});
     const [error, setError] = useState();
+    //Loading
+    const [isLoading, setIsLoading] = useState(true);
     const { id } = useParams();
     useEffect(() => {
         axios
             .get(`${VITE_URL_API}/posts/${id}`)
             .then((res) => {
+                setIsLoading(false);
                 console.log(res.data);
                 setPost(res.data);
             })
             .catch((error) => {
+                setIsLoading(false);
                 console.log(error);
                 setError(true);
             });
@@ -42,10 +46,13 @@ const SinglePost = () => {
                         </p>
                     </div>
                     {error && <div className="no-data">Server Error</div>}
-                    {!post && <div className="no-data">Loading...</div>}
                 </div>
-                {!error && post && (
-                    <div className="single-post-container">
+                <div className="single-post-container">
+                    {isLoading && <div className="no-data">Loading...</div>}
+                    {!isLoading && post.length === 0 && (
+                        <div className="no-data">No Post available</div>
+                    )}
+                    {!error && !isLoading && post && (
                         <div className="post">
                             <figure>
                                 <img src={post.img} alt="" />
@@ -79,8 +86,8 @@ const SinglePost = () => {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                )}
+                    )}
+                </div>
             </>
         </div>
     );
