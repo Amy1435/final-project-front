@@ -997,6 +997,19 @@ nav.sticky {
             width: 98%;
         }
     }
+    .user-data-container {
+        padding: 0rem 0rem 3rem 0rem;
+        .user-data {
+            padding: 0.5rem;
+        }
+    }
+    //modal
+    .form-container-new .form-new {
+        width: 90%;
+    }
+    modal-container .delete-container {
+        width: 70%;
+    }
 }
 
 //MEDIA QUERY MOBILE 390
