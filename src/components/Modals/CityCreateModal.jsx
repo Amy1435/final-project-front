@@ -53,7 +53,7 @@ const CityModal = ({ modalClose, setCities }) => {
                     <form onSubmit={handleClick}>
                         <div className="input-container">
                             <div>
-                                <span>City Name</span>
+                                <span>Name</span>
                                 <input
                                     type="text"
                                     name="name"

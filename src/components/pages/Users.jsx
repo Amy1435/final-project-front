@@ -64,7 +64,7 @@ const Users = () => {
         <>
             <div className="page data">
                 {error && <div>{error}</div>}
-                {!error && users && (
+                {!error && (
                     <>
                         <div className="title-text">
                             <div>
@@ -114,18 +114,23 @@ const Users = () => {
                             </div>
                         </div>
                         {isLoading && <div className="no-data">Loading...</div>}
-                        {!isLoading && users.length === 0 && (
-                            <div className="no-data">No users</div>
-                        )}
-                        {!isLoading && users.length > 0 && (
-                            <div className="data-container users">
-                                {users.map((user) => (
-                                    <div key={user._id} className="users-data">
-                                        <User user={user} />
-                                    </div>
-                                ))}
-                            </div>
-                        )}
+                        <div className="data-container users">
+                            {!isLoading && users.length === 0 && (
+                                <div className="no-data">No users</div>
+                            )}
+                            {!isLoading && users.length > 0 && (
+                                <>
+                                    {users.map((user) => (
+                                        <div
+                                            key={user._id}
+                                            className="users-data"
+                                        >
+                                            <User user={user} />
+                                        </div>
+                                    ))}
+                                </>
+                            )}
+                        </div>
                     </>
                 )}
             </div>

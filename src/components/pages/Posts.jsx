@@ -61,7 +61,7 @@ const Posts = () => {
     return (
         <div className="page data">
             {error && <div>{error}</div>}
-            {!error && posts && (
+            {!error && (
                 <>
                     <div className="title-text">
                         <div>
@@ -106,19 +106,22 @@ const Posts = () => {
                             </div>
                         </div>
                     </div>
+
                     {isLoading && <div className="no-data">Loading...</div>}
-                    {!isLoading && posts.length === 0 && (
-                        <div className="no-data">No users</div>
-                    )}
-                    {!isLoading && posts.length > 0 && (
-                        <div className="data-container posts">
-                            {posts.map((post) => (
-                                <div key={post._id} className="posts-data">
-                                    <Post post={post} />
-                                </div>
-                            ))}
-                        </div>
-                    )}
+                    <div className="data-container posts">
+                        {!isLoading && posts.length === 0 && (
+                            <div className="no-data">No users</div>
+                        )}
+                        {!isLoading && posts.length > 0 && (
+                            <>
+                                {posts.map((post) => (
+                                    <div key={post._id} className="posts-data">
+                                        <Post post={post} />
+                                    </div>
+                                ))}
+                            </>
+                        )}
+                    </div>
                 </>
             )}
         </div>

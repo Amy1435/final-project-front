@@ -92,58 +92,66 @@ const SingleCity = () => {
             {!error && (
                 <>
                     <div className="single-city-container">
-                        {isLoading && <div className="no-data">Loading...</div>}
-                        {!isLoading && city.length === 0 && (
-                            <div className="no-data">No Post available</div>
-                        )}
-                        {!isLoading && city && (
-                            <>
-                                <section className="basic-info">
-                                    <div className="title">
-                                        <span>Basic Information</span>
-                                    </div>
+                        <>
+                            <section className="basic-info">
+                                <div className="title">
+                                    <span>Basic Information</span>
+                                </div>
 
-                                    <div className="data">
-                                        <span>Name</span>
-                                        <span>{city.name}</span>
+                                {isLoading && (
+                                    <div className="no-data">Loading...</div>
+                                )}
+                                {!isLoading && city.length === 0 && (
+                                    <div className="no-data">
+                                        No Post available
                                     </div>
-                                    <div className="data">
-                                        <span>Country</span>
-                                        <span>{city.country}</span>
-                                    </div>
-                                    <div className="data">
-                                        <span>Continent</span>
-                                        <span>{city.continent}</span>
-                                    </div>
-                                    <div className="data">
-                                        <span>Population</span>
-                                        <span>{city.population} people</span>
-                                    </div>
-                                </section>
-                                <section className="nomad-info">
-                                    <div className="title">
-                                        <span>Digital Nomad Information</span>
-                                    </div>
-                                    <div className="data">
-                                        <span>Internet Speed</span>
-                                        <span>{city.internet_speed} Mbps</span>
-                                    </div>
-                                    <div className="data">
-                                        <span>Sefety Level</span>
-                                        <span>{city.sefety_level}/10</span>
-                                    </div>
+                                )}
+                                {!isLoading && city && (
+                                    <>
+                                        <div className="data">
+                                            <span>Name</span>
+                                            <span>{city.name}</span>
+                                        </div>
+                                        <div className="data">
+                                            <span>Country</span>
+                                            <span>{city.country}</span>
+                                        </div>
+                                        <div className="data">
+                                            <span>Continent</span>
+                                            <span>{city.continent}</span>
+                                        </div>
+                                        <div className="data">
+                                            <span>Population</span>
+                                            <span>
+                                                {city.population} people
+                                            </span>
+                                        </div>
+                                    </>
+                                )}
+                            </section>
+                            <section className="nomad-info">
+                                <div className="title">
+                                    <span>Digital Nomad Information</span>
+                                </div>
+                                <div className="data">
+                                    <span>Internet Speed</span>
+                                    <span>{city.internet_speed} Mbps</span>
+                                </div>
+                                <div className="data">
+                                    <span>Sefety Level</span>
+                                    <span>{city.sefety_level}/10</span>
+                                </div>
 
-                                    <div className="data">
-                                        <span> Cost of living</span>
-                                        <span>
-                                            {" "}
-                                            {city.cost_of_living_month} dollars/
-                                            per month
-                                        </span>
-                                    </div>
-                                </section>
-                            </>
-                        )}
+                                <div className="data">
+                                    <span> Cost of living</span>
+                                    <span>
+                                        {" "}
+                                        {city.cost_of_living_month} dollars/ per
+                                        month
+                                    </span>
+                                </div>
+                            </section>
+                        </>
 
                         <section className="city-posts-container">
                             <div className="title">

@@ -53,7 +53,7 @@ const Cities = () => {
             <div className="page data">
                 {error && <div>{error}</div>}
 
-                {!error && cities && (
+                {!error && (
                     <>
                         <div className="title-text">
                             <div>
@@ -101,35 +101,38 @@ const Cities = () => {
                                 </div>
                             </div>
                         </div>
+
                         {isLoading && <div className="no-data">Loading...</div>}
-                        {!isLoading && cities.length === 0 && (
-                            <div className="no-data">No users</div>
-                        )}
-                        {!isLoading && cities.length > 0 && (
-                            <div className="data-container cities">
-                                {cities.map((city) => (
-                                    <div key={city._id} className="cities">
-                                        <Link to={`/cities/${city._id}`}>
-                                            <figure>
-                                                <img
-                                                    src={
-                                                        city.img.includes(
-                                                            `https://`
-                                                        )
-                                                            ? city.img
-                                                            : `https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png`
-                                                    }
-                                                    alt="city-img"
-                                                />
-                                                <div>
-                                                    <span>{city.name}</span>
-                                                </div>
-                                            </figure>
-                                        </Link>
-                                    </div>
-                                ))}
-                            </div>
-                        )}
+                        <div className="data-container cities">
+                            {!isLoading && cities.length === 0 && (
+                                <div className="no-data">No users</div>
+                            )}
+                            {!isLoading && cities.length > 0 && (
+                                <>
+                                    {cities.map((city) => (
+                                        <div key={city._id} className="cities">
+                                            <Link to={`/cities/${city._id}`}>
+                                                <figure>
+                                                    <img
+                                                        src={
+                                                            city.img.includes(
+                                                                `https://`
+                                                            )
+                                                                ? city.img
+                                                                : `https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png`
+                                                        }
+                                                        alt="city-img"
+                                                    />
+                                                    <div>
+                                                        <span>{city.name}</span>
+                                                    </div>
+                                                </figure>
+                                            </Link>
+                                        </div>
+                                    ))}
+                                </>
+                            )}
+                        </div>
                     </>
                 )}
             </div>
