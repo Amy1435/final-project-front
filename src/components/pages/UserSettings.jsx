@@ -25,6 +25,7 @@ const UserSettings = () => {
     const [isLoading, setIsLoading] = useState(true);
     //post to edit or eliminate
     const [userPosts, setUserPosts] = useState([]);
+    const [selectedPost, setSelectedPost] = useState(null);
     const id = user._id;
 
     //dati user
@@ -69,13 +70,15 @@ const UserSettings = () => {
     };
 
     //open modal to edit the post
-    const handleModalEditPost = () => {
+    const handleModalEditPost = (post) => {
+        setSelectedPost(post);
         setModalEditOpenPost(true);
     };
 
-    //open modal to delete the user
+    //open modal to delete the post
 
-    const handleModalDeletePost = () => {
+    const handleModalDeletePost = (post) => {
+        setSelectedPost(post);
         setModalDeleteOpenPost(true);
     };
 
@@ -193,14 +196,18 @@ const UserSettings = () => {
                                         </div>
                                         <div className="btn-container">
                                             <button
-                                                onClick={handleModalEditPost}
+                                                onClick={() =>
+                                                    handleModalEditPost(post)
+                                                }
                                                 className="btn blue"
                                             >
                                                 Edit
                                             </button>
                                             <button
                                                 className="btn"
-                                                onClick={handleModalDeletePost}
+                                                onClick={() =>
+                                                    handleModalDeletePost(post)
+                                                }
                                             >
                                                 Delete
                                             </button>
@@ -209,8 +216,9 @@ const UserSettings = () => {
                                             <PostModal
                                                 modalClose={() => {
                                                     setModalEditOpenPost(false);
+                                                    setSelectedPost(null);
                                                 }}
-                                                postData={post}
+                                                postData={selectedPost}
                                                 setUserPosts={setUserPosts}
                                             />
                                         )}
@@ -220,6 +228,7 @@ const UserSettings = () => {
                                                     setModalDeleteOpenPost(
                                                         false
                                                     );
+                                                    setSelectedPost(null);
                                                 }}
                                                 postId={post._id}
                                             />
