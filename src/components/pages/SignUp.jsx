@@ -37,9 +37,8 @@ const SignUp = () => {
                 age: age,
                 bio: bio,
             })
-            .then((res) => {
+            .then(() => {
                 setSuccefullMsg("Sign up successful");
-                console.log(`sign up` + res.data);
                 setUsername("");
                 setEmail("");
                 setPassword("");
@@ -61,11 +60,10 @@ const SignUp = () => {
         axios
             .get(`${VITE_URL_API}/cities`)
             .then((response) => {
-                console.log(response.data);
                 setCities(response.data);
             })
             .catch((error) => {
-                console.log(error);
+                console.error(error);
                 setError(true);
             });
     }, []);

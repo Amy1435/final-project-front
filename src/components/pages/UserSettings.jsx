@@ -34,12 +34,11 @@ const UserSettings = () => {
             .get(`${VITE_URL_API}/users/${id}`)
             .then((res) => {
                 setIsLoading(false);
-                console.log(res.data);
                 setUserData(res.data);
             })
             .catch((error) => {
                 setIsLoading(false);
-                console.log(error);
+                console.error(error);
                 setError(true);
             });
     }, [id]);
@@ -51,11 +50,10 @@ const UserSettings = () => {
             .then((res) => {
                 setIsLoading(false);
                 setUserPosts(res.data);
-                console.log(res.data);
             })
             .catch((error) => {
                 setIsLoading(false);
-                console.log(error);
+                console.error(error);
                 setError(true);
             });
     }, [id]);
@@ -231,6 +229,7 @@ const UserSettings = () => {
                                                     setSelectedPost(null);
                                                 }}
                                                 postId={post._id}
+                                                setUserPosts={setUserPosts}
                                             />
                                         )}
                                     </div>

@@ -27,7 +27,6 @@ const Users = () => {
             .get(`${VITE_URL_API}/users`)
             .then((res) => {
                 setIsLoading(false);
-                console.log(res.data);
                 //remove the user logged in from the user list
                 if (user) {
                     const filteredUsers = res.data.filter(
@@ -41,7 +40,7 @@ const Users = () => {
                 }
             })
             .catch((error) => {
-                console.log(error);
+                console.error(error);
                 setError(true);
                 setIsLoading(false);
             });

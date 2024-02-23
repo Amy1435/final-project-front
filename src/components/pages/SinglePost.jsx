@@ -15,12 +15,11 @@ const SinglePost = () => {
             .get(`${VITE_URL_API}/posts/${id}`)
             .then((res) => {
                 setIsLoading(false);
-                console.log(res.data);
                 setPost(res.data);
             })
             .catch((error) => {
                 setIsLoading(false);
-                console.log(error);
+                console.error(error);
                 setError(true);
             });
     }, [id]);

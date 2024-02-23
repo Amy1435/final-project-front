@@ -23,7 +23,7 @@ export const ContextProvider = ({ children }) => {
         localStorage.setItem("user", JSON.stringify(state.user));
     }, [state.user]);
 
-    console.log("UserContex state:", state);
+    // console.log("UserContex state:", state);
 
     return (
         <Context.Provider value={{ user: state.user, dispatch }}>

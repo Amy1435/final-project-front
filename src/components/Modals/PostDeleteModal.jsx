@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 const { VITE_URL_API } = import.meta.env;
 
-const PostModalDelete = ({ modalClose, postId }) => {
+const PostModalDelete = ({ modalClose, postId, setUserPosts }) => {
     const [success, setSuccess] = useState("");
     const [error, setError] = useState("");
     //loading disable btn
@@ -15,6 +15,9 @@ const PostModalDelete = ({ modalClose, postId }) => {
             .delete(`${VITE_URL_API}/posts/${postId}`)
             .then(() => {
                 setSuccess("Post Deleted");
+                setUserPosts((prevUserPosts) =>
+                    prevUserPosts.filter((post) => post._id !== postId)
+                );
                 modalClose();
             })
             .catch((error) => {

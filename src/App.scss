@@ -435,6 +435,7 @@ nav.sticky {
             flex-direction: column;
             gap: 0.5rem;
             width: 90%;
+            max-width: 100%;
             padding: 1rem;
         }
         .city {
@@ -453,6 +454,12 @@ nav.sticky {
             display: -webkit-box;
             -webkit-line-clamp: 1;
             -webkit-box-orient: vertical;
+        }
+        .bio {
+            overflow: visible;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            width: 100%;
         }
     }
     .user-data.posts {
@@ -624,6 +631,9 @@ nav.sticky {
     align-items: center;
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.4);
+    textarea {
+        max-width: 100%;
+    }
 
     //delete modal
     .delete-container {

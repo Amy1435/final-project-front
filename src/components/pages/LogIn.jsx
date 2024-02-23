@@ -24,17 +24,15 @@ const LogIn = () => {
                 })
                 .then((res) => {
                     const user = res.data;
-
                     dispatch({ type: "LOGIN", payload: user });
-
                     navigate("/posts");
                 })
                 .catch((error) => {
-                    console.log(error);
+                    console.error(error);
                     setError(error);
                 });
         } catch (error) {
-            console.log(error);
+            console.error(error);
             setError(error);
         } finally {
             setIsLoading(false);

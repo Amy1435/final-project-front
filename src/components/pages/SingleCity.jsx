@@ -22,12 +22,11 @@ const SingleCity = () => {
             .get(`${VITE_URL_API}/cities/${id}`)
             .then((res) => {
                 setIsLoading(false);
-                console.log(res.data);
                 setCity(res.data);
             })
             .catch((error) => {
                 setIsLoading(false);
-                console.log(error);
+                console.error(error);
                 setError(true);
             });
     }, [id]);
@@ -38,7 +37,6 @@ const SingleCity = () => {
             .get(`${VITE_URL_API}/posts?city=${id}`)
             .then((res) => {
                 setIsLoading(false);
-                console.log(res.data);
                 //if user logged in filter
                 if (user) {
                     const filterUsers = res.data.filter(
@@ -51,7 +49,7 @@ const SingleCity = () => {
             })
             .catch((error) => {
                 setIsLoading(false);
-                console.log(error);
+                console.error(error);
                 setError(true);
             });
     }, [id, user]);
@@ -63,7 +61,6 @@ const SingleCity = () => {
             .then((res) => {
                 setIsLoading(false);
                 //filter post if logged
-                console.log(res.data);
                 if (user) {
                     const filterPosts = res.data.filter(
                         (currUser) => currUser._id !== user._id
@@ -75,7 +72,7 @@ const SingleCity = () => {
             })
             .catch((error) => {
                 setIsLoading(false);
-                console.log(error);
+                console.error(error);
                 setError(true);
             });
     }, [id, user]);

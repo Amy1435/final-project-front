@@ -27,11 +27,10 @@ const PostModal = ({ modalClose, postData, setUserPosts }) => {
     //update post data
     const handleClick = (e) => {
         e.preventDefault();
-        console.log(formState);
         setIsLoading(true);
         axios
             .patch(`${VITE_URL_API}/posts/${id}`, formState)
-            .then((res) => {
+            .then(() => {
                 setSuccess("Update successful");
                 setUserPosts((prevPosts) =>
                     prevPosts.map((prevPost) =>
@@ -40,7 +39,6 @@ const PostModal = ({ modalClose, postData, setUserPosts }) => {
                             : prevPost
                     )
                 );
-                console.log(res.data);
                 modalClose();
             })
             .catch((error) => {

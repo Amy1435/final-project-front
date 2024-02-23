@@ -14,11 +14,10 @@ const SingleUser = () => {
             .get(`${VITE_URL_API}/users/${id}`)
             .then((res) => {
                 setIsLoading(false);
-                console.log(res.data);
                 setUser(res.data);
             })
             .catch((error) => {
-                console.log(error);
+                console.error(error);
                 setError(true);
             });
     }, [id]);
@@ -34,82 +33,81 @@ const SingleUser = () => {
                     {error && <div>{error.message}</div>}
                 </div>
                 <div className="user-data-container">
-                    {isLoading && <div className="no-data">Loading...</div>}
-                    {!isLoading && user.length === 0 && (
-                        <div className="no-data">No user</div>
-                    )}
-                    {!error && !isLoading && user && (
-                        <>
-                            <section className="user-data">
-                                <figure>
-                                    <img
-                                        src={
-                                            user.profile_img.includes(
-                                                `https://`
-                                            )
-                                                ? user.profile_img
-                                                : `https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png`
-                                        }
-                                        alt="profile_img"
-                                    />
-                                </figure>
-                                <div className="data">
-                                    <span>UserName: {user.username}</span>
-                                    <div>
-                                        <span>From: </span>
-                                        <span>
-                                            <Link
-                                                to={`/cities/${user.city?._id}`}
-                                                className="city"
-                                            >
-                                                {" "}
-                                                {user.city?.name}
-                                            </Link>
-                                        </span>
-                                    </div>
-                                    <span>Age: {user.age}</span>
-
-                                    <span>
-                                        User since:{" "}
-                                        {dayjs(user.createdAt).format(
-                                            "DD/MM/YYYY"
-                                        )}
-                                    </span>
-                                    <span>{user.bio}</span>
-                                </div>
-                            </section>
-
-                            <section className="user-data posts">
-                                <div>
-                                    <h2>{user.username} Posts</h2>
-                                </div>
-                                <div className="post-container">
-                                    {isLoading && (
-                                        <div className="no-data">
-                                            Loading...
-                                        </div>
-                                    )}
-                                    {!isLoading && user.posts.length === 0 && (
-                                        <div className="no-data">No Posts</div>
-                                    )}
-                                    {!isLoading &&
-                                        user.posts.length > 0 &&
-                                        user.posts.map((post) => (
-                                            <div
-                                                key={post._id}
-                                                className="data"
-                                            >
-                                                <Link to={`/posts/${post._id}`}>
-                                                    <div className="title-post">
-                                                        <p>{post.title}</p>
-                                                    </div>
+                    <>
+                        <section className="user-data">
+                            {isLoading && (
+                                <div className="no-data">Loading...</div>
+                            )}
+                            {!isLoading && user.length === 0 && (
+                                <div className="no-data">No user</div>
+                            )}
+                            {!error && !isLoading && user && (
+                                <>
+                                    <figure>
+                                        <img
+                                            src={
+                                                user.profile_img.includes(
+                                                    `https://`
+                                                )
+                                                    ? user.profile_img
+                                                    : `https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png`
+                                            }
+                                            alt="profile_img"
+                                        />
+                                    </figure>
+                                    <div className="data">
+                                        <span>UserName: {user.username}</span>
+                                        <div>
+                                            <span>From: </span>
+                                            <span>
+                                                <Link
+                                                    to={`/cities/${user.city?._id}`}
+                                                    className="city"
+                                                >
+                                                    {" "}
+                                                    {user.city?.name}
                                                 </Link>
-                                            </div>
-                                        ))}
-                                </div>
-                            </section>
-                        </>
-                    )}
+                                            </span>
+                                        </div>
+                                        <span>Age: {user.age}</span>
+
+                                        <span>
+                                            User since:{" "}
+                                            {dayjs(user.createdAt).format(
+                                                "DD/MM/YYYY"
+                                            )}
+                                        </span>
+                                        <span>{user.bio}</span>
+                                    </div>
+                                </>
+                            )}
+                        </section>
+
+                        <section className="user-data posts">
+                            <div>
+                                <h2>{user.username} Posts</h2>
+                            </div>
+                            <div className="post-container">
+                                {isLoading && (
+                                    <div className="no-data">Loading...</div>
+                                )}
+                                {!isLoading && user.posts.length === 0 && (
+                                    <div className="no-data">No Posts</div>
+                                )}
+                                {!isLoading &&
+                                    user.posts.length > 0 &&
+                                    user.posts.map((post) => (
+                                        <div key={post._id} className="data">
+                                            <Link to={`/posts/${post._id}`}>
+                                                <div className="title-post">
+                                                    <p>{post.title}</p>
+                                                </div>
+                                            </Link>
+                                        </div>
+                                    ))}
+                            </div>
+                        </section>
+                    </>
                 </div>
             </>
         </div>

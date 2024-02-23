@@ -31,11 +31,10 @@ const UserModal = ({ modalClose, userData, setUserData }) => {
         axios
             .get(`${VITE_URL_API}/cities`)
             .then((response) => {
-                console.log(response.data);
                 setCities(response.data);
             })
             .catch((error) => {
-                console.log(error);
+                console.error(error);
                 setError(true);
             });
     }, []);
@@ -56,7 +55,6 @@ const UserModal = ({ modalClose, userData, setUserData }) => {
     //update user data
     const handleClick = (e) => {
         e.preventDefault();
-        console.log(formState);
         setIsLoading(true);
         axios
             .patch(`${VITE_URL_API}/users/${id}`, {
@@ -71,10 +69,6 @@ const UserModal = ({ modalClose, userData, setUserData }) => {
             .then((res) => {
                 setSuccess("Update successful");
                 setUserData(res.data);
-                console.log(
-                    "Updated User Data:",
-                    JSON.stringify(res.data, null, 2)
-                );
                 dispatch({
                     type: "UPDATE_USER",
                     payload: res.data,

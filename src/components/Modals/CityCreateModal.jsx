@@ -28,19 +28,16 @@ const CityModal = ({ modalClose, setCities }) => {
     //update user data
     const handleClick = (e) => {
         e.preventDefault();
-        console.log(formState);
         setIsLoading(true);
         axios
             .post(`${VITE_URL_API}/cities`, formState)
             .then((res) => {
-                console.log(res.data);
                 const newCity = res.data;
                 setCities((prevCities) => [...prevCities, newCity]);
                 setSuccess("City created successful");
                 modalClose();
             })
             .catch((error) => {
-                console.error(error);
                 setError(error);
             });
         setIsLoading(false);

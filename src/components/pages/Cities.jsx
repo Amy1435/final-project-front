@@ -24,13 +24,12 @@ const Cities = () => {
             .get(`${VITE_URL_API}/cities`)
             .then((res) => {
                 setIsLoading(false);
-                console.log(res.data);
                 setCities(res.data);
                 setReset(res.data);
             })
             .catch((error) => {
                 setIsLoading(false);
-                console.log(error);
+                console.error(error);
                 setError(true);
             });
     }, []);

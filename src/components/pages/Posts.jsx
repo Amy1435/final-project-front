@@ -26,7 +26,6 @@ const Posts = () => {
             .get(`${VITE_URL_API}/posts`)
             .then((res) => {
                 setIsLoading(false);
-                console.log(res.data);
                 //filter post if logged
                 if (user) {
                     const filterPosts = res.data.filter(
@@ -40,7 +39,7 @@ const Posts = () => {
                 }
             })
             .catch((error) => {
-                console.log(error);
+                console.error(error);
                 setError(true);
                 setIsLoading(false);
             });

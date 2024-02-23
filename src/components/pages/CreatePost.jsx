@@ -26,11 +26,10 @@ const CreatePost = () => {
         axios
             .get(`${VITE_URL_API}/cities`)
             .then((response) => {
-                console.log(response.data);
                 setCities(response.data);
             })
             .catch((error) => {
-                console.log(error);
+                console.error(error);
                 setError(true);
             });
     }, []);
@@ -42,7 +41,6 @@ const CreatePost = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Selected City:", selectedCity);
         axios
             .post(`${VITE_URL_API}/posts`, {
                 title: title,
@@ -51,11 +49,10 @@ const CreatePost = () => {
                 post: post,
                 user: user._id,
             })
-            .then((res) => {
+            .then(() => {
                 setSuccefullMsg(
                     "Your experience is being shared with other travelers. Thanks!"
                 );
-                console.log(res.data);
                 setTitle("");
                 setImg("");
                 setPost("");
