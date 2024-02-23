@@ -38,14 +38,7 @@ nav {
     z-index: 1000;
     box-sizing: border-box;
 
-    #checkbox {
-        display: none;
-    }
-    .nav-icon {
-        position: absolute;
-        right: 3%;
-        font-size: 1.7rem;
-        cursor: pointer;
+    .menu-icon {
         display: none;
     }
 
@@ -53,7 +46,6 @@ nav {
         img {
             height: auto;
             width: 250px;
-            //add minimum width
         }
     }
     menu {
@@ -851,46 +843,47 @@ nav.sticky {
 @media only screen and (max-width: 950px) {
     nav {
         padding: 1rem 1rem;
-        menu {
+        .menu-icon {
+            display: block;
             position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            height: 0px;
-            background-color: #de2b52;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 5px 10px 30px rgba(85 85 85/ 60%);
-            overflow: hidden;
-            transition: 0.3s ease;
-            .log-links {
-                li {
-                    border: none;
-                }
-            }
+            font-size: 30px;
+            color: white;
+            border: none;
+            outline: none;
+            top: 15px;
+            right: 25px;
+            background-color: transparent;
         }
-        #checkbox:checked ~ .nav-icon #menu-icon {
+        menu {
             display: none;
         }
-        #checkbox:checked ~ .nav-icon #close-icon {
+        .open-menu {
+            position: absolute;
             display: block;
-        }
-        #checkbox:checked ~ menu {
-            height: 200px;
-        }
-        .nav-icon {
-            display: inline-flex;
-            #close-icon {
-                display: none;
+            list-style: none;
+            background-color: #c22546;
+            left: 0;
+            top: 75px;
+            transition: all 0.5s ease-out;
+            width: 100%;
+            .links {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                width: 100%;
+                transition: all 0.5s ease-out;
+                padding: 1rem 0rem;
             }
         }
+
         figure {
             img {
                 width: 220px;
             }
         }
+    }
+    .nav-open {
+        background-color: #b30c30;
     }
     .data {
         .search-filter {

@@ -1,12 +1,13 @@
 import { NavLink, Link } from "react-router-dom";
 import logo from "../../images/logo.png";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Context } from "../../context/UserContext";
 import { handleScroll } from "./handleScroll";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 const NavBar = () => {
     const { user, dispatch } = useContext(Context);
+    const [menuOpen, setMenuOpen] = useState(false);
 
     const handleLogOut = () => {
         dispatch({ type: "LOGOUT" });
@@ -23,18 +24,16 @@ const NavBar = () => {
 
     return (
         <>
-            <nav>
+            <nav className={menuOpen ? "nav-open" : ""}>
                 <figure>
                     <Link to="/">
-                        <img src={logo} alt="" />
+                        <img src={logo} />
                     </Link>
                 </figure>
-                <input type="checkbox" id="checkbox" />
-                <label htmlFor="checkbox" className="nav-icon">
-                    <FontAwesomeIcon icon={faBars} id="menu-icon" />
-                    <FontAwesomeIcon icon={faXmark} id="close-icon" />
-                </label>
-                <menu>
+                <menu
+                    className={menuOpen ? "open-menu" : ""}
+                    onClick={() => setMenuOpen(false)}
+                >
                     <>
                         <div className="links">
                             <li>
@@ -94,6 +93,19 @@ const NavBar = () => {
                         )}
                     </>
                 </menu>
+                <button className="menu-icon">
+                    {menuOpen ? (
+                        <FontAwesomeIcon
+                            icon={faXmark}
+                            onClick={() => setMenuOpen(false)}
+                        />
+                    ) : (
+                        <FontAwesomeIcon
+                            icon={faBars}
+                            onClick={() => setMenuOpen(true)}
+                        />
+                    )}
+                </button>
             </nav>
         </>
     );
