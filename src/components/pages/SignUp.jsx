@@ -83,13 +83,12 @@ const SignUp = () => {
                 </div>
                 <div>
                     <p>
-                        Lorem Ipsum is simply dummy text of the printing and
-                        typesetting industry. Lorem Ipsum has been the standard
-                        dummy text ever since the 1500s, when an unknown printer
-                        took a galley of type and scrambled it to make a type
-                        specimen book. It has survived not only five centuries,
-                        but also the leap into electronic typesetting, remaining
-                        essentially unchanged.
+                        Join the community of digital nomads and embark on a
+                        journey of shared experiences. Sign up to connect with
+                        fellow travelers, access exclusive content, and
+                        contribute your own stories. Create a profile, and
+                        become part of a vibrant network of individuals working
+                        and exploring from anywhere in the world.
                     </p>
                 </div>
             </section>

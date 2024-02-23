@@ -72,7 +72,7 @@ const CreatePost = () => {
         <>
             <div className="title-text">
                 <div>
-                    <h1>Write your travelling experience</h1>
+                    <h1>Write your experience</h1>
                 </div>
                 <div>
                     <p>

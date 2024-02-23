@@ -30,20 +30,7 @@ const SinglePost = () => {
             <>
                 <div className="title-text">
                     <div>
-                        <h1>Post</h1>
-                    </div>
-                    <div>
-                        <p>
-                            Sharing your travel experiences helps create a sense
-                            of community among travelers. Your insights may
-                            prove invaluable to someone planning a similar trip,
-                            providing them with guidance and support. Travel is
-                            not just about places but also about people and
-                            cultures. Sharing your encounters and interactions
-                            can foster a greater understanding of different
-                            lifestyles, traditions, and customs, promoting
-                            cultural exchange.
-                        </p>
+                        <h1>{post.title}</h1>
                     </div>
                     {error && <div className="no-data">Server Error</div>}
                 </div>

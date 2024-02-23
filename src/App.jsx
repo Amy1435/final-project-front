@@ -17,6 +17,7 @@ import SingleUser from "./components/pages/SingleUser";
 import UserSettings from "./components/pages/UserSettings";
 import Cities from "./components/pages/Cities";
 import SingleCity from "./components/pages/SingleCity";
+import Footer from "./components/Footer/Footer";
 
 function App() {
     const { user } = useContext(Context);
@@ -60,6 +61,7 @@ function App() {
 
                 <Route path="*" element={<PageNotFound />} />
             </Routes>
+            <Footer />
         </>
     );
 }

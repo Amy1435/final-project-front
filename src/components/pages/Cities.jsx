@@ -49,86 +49,91 @@ const Cities = () => {
     };
 
     return (
-        <div className="page data">
-            {error && <div>{error}</div>}
+        <>
+            <div className="page data">
+                {error && <div>{error}</div>}
 
-            {!error && cities && (
-                <>
-                    <div className="title-text">
-                        <div>
-                            <h1>Cities</h1>
-                        </div>
-                        <div>
-                            <p>
-                                Lorem Ipsum is simply dummy text of the printing
-                                and typesetting industry. Lorem Ipsum has been
-                                the standard dummy text ever since the 1500s,
-                                when an unknown printer took a galley of type
-                                and scrambled it to make a type specimen book.
-                                It has survived not only five centuries, but
-                                also the leap into electronic typesetting,
-                                remaining essentially unchanged.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="search-filter">
-                        <div className="searchBox">
-                            <input
-                                type="text"
-                                value={city}
-                                onChange={(e) => setCity(e.target.value)}
-                                className="searchInput"
-                                placeholder="Search by city"
-                            />
-                            <div className="search-btn">
-                                <button
-                                    onClick={() => handleSearch(city)}
-                                    className="searchButton searchIcon"
-                                >
-                                    <FontAwesomeIcon icon={faMagnifyingGlass} />
-                                </button>
-                                <button
-                                    onClick={handleReset}
-                                    className="searchButton resetIcon"
-                                >
-                                    <FontAwesomeIcon icon={faArrowsRotate} />
-                                </button>
+                {!error && cities && (
+                    <>
+                        <div className="title-text">
+                            <div>
+                                <h1>Cities</h1>
+                            </div>
+                            <div>
+                                <p>
+                                    Welcome, here you can explore destinations
+                                    perfect for digital nomads. Discover
+                                    information about each citys like cost of
+                                    living, internet speed, and more. Find your
+                                    next adventure and gather insights from
+                                    fellow nomads who have shared their
+                                    experiences in these vibrant locations.
+                                </p>
                             </div>
                         </div>
-                    </div>
-                    {isLoading && <div className="no-data">Loading...</div>}
-                    {!isLoading && cities.length === 0 && (
-                        <div className="no-data">No users</div>
-                    )}
-                    {!isLoading && cities.length > 0 && (
-                        <div className="data-container cities">
-                            {cities.map((city) => (
-                                <div key={city._id} className="cities">
-                                    <Link to={`/cities/${city._id}`}>
-                                        <figure>
-                                            <img
-                                                src={
-                                                    city.img.includes(
-                                                        `https://`
-                                                    )
-                                                        ? city.img
-                                                        : `https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png`
-                                                }
-                                                alt="city-img"
-                                            />
-                                            <div>
-                                                <span>{city.name}</span>
-                                            </div>
-                                        </figure>
-                                    </Link>
+
+                        <div className="search-filter">
+                            <div className="searchBox">
+                                <input
+                                    type="text"
+                                    value={city}
+                                    onChange={(e) => setCity(e.target.value)}
+                                    className="searchInput"
+                                    placeholder="Search by city"
+                                />
+                                <div className="search-btn">
+                                    <button
+                                        onClick={() => handleSearch(city)}
+                                        className="searchButton searchIcon"
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={faMagnifyingGlass}
+                                        />
+                                    </button>
+                                    <button
+                                        onClick={handleReset}
+                                        className="searchButton resetIcon"
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={faArrowsRotate}
+                                        />
+                                    </button>
                                 </div>
-                            ))}
+                            </div>
                         </div>
-                    )}
-                </>
-            )}
-        </div>
+                        {isLoading && <div className="no-data">Loading...</div>}
+                        {!isLoading && cities.length === 0 && (
+                            <div className="no-data">No users</div>
+                        )}
+                        {!isLoading && cities.length > 0 && (
+                            <div className="data-container cities">
+                                {cities.map((city) => (
+                                    <div key={city._id} className="cities">
+                                        <Link to={`/cities/${city._id}`}>
+                                            <figure>
+                                                <img
+                                                    src={
+                                                        city.img.includes(
+                                                            `https://`
+                                                        )
+                                                            ? city.img
+                                                            : `https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png`
+                                                    }
+                                                    alt="city-img"
+                                                />
+                                                <div>
+                                                    <span>{city.name}</span>
+                                                </div>
+                                            </figure>
+                                        </Link>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </>
+                )}
+            </div>
+        </>
     );
 };
 

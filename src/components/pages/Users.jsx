@@ -61,69 +61,75 @@ const Users = () => {
     };
 
     return (
-        <div className="page data">
-            {error && <div>{error}</div>}
-            {!error && users && (
-                <>
-                    <div className="title-text">
-                        <div>
-                            <h1>Users</h1>
-                        </div>
-                        <div>
-                            <p>
-                                Lorem Ipsum is simply dummy text of the printing
-                                and typesetting industry. Lorem Ipsum has been
-                                the standard dummy text ever since the 1500s,
-                                when an unknown printer took a galley of type
-                                and scrambled it to make a type specimen book.
-                                It has survived not only five centuries, but
-                                also the leap into electronic typesetting,
-                                remaining essentially unchanged.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="search-filter">
-                        <div className="searchBox">
-                            <input
-                                type="text"
-                                value={city}
-                                onChange={(e) => setCity(e.target.value)}
-                                className="searchInput"
-                                placeholder="Search by city"
-                            />
-                            <div className="search-btn">
-                                <button
-                                    onClick={() => handleSearch(city)}
-                                    className="searchButton searchIcon"
-                                >
-                                    <FontAwesomeIcon icon={faMagnifyingGlass} />
-                                </button>
-                                <button
-                                    onClick={handleReset}
-                                    className="searchButton resetIcon"
-                                >
-                                    <FontAwesomeIcon icon={faArrowsRotate} />
-                                </button>
+        <>
+            <div className="page data">
+                {error && <div>{error}</div>}
+                {!error && users && (
+                    <>
+                        <div className="title-text">
+                            <div>
+                                <h1>Users</h1>
+                            </div>
+                            <div>
+                                <p>
+                                    Connect with a global community of digital
+                                    nomads on our website. Explore profiles of
+                                    individuals living the nomadic lifestyle,
+                                    discover their backgrounds, skills, and
+                                    current locations. Engage with others,
+                                    exchange insights, and forge connections
+                                    with fellow nomads scattered across the
+                                    globe.
+                                </p>
                             </div>
                         </div>
-                    </div>
-                    {isLoading && <div className="no-data">Loading...</div>}
-                    {!isLoading && users.length === 0 && (
-                        <div className="no-data">No users</div>
-                    )}
-                    {!isLoading && users.length > 0 && (
-                        <div className="data-container users">
-                            {users.map((user) => (
-                                <div key={user._id} className="users-data">
-                                    <User user={user} />
+
+                        <div className="search-filter">
+                            <div className="searchBox">
+                                <input
+                                    type="text"
+                                    value={city}
+                                    onChange={(e) => setCity(e.target.value)}
+                                    className="searchInput"
+                                    placeholder="Search by city"
+                                />
+                                <div className="search-btn">
+                                    <button
+                                        onClick={() => handleSearch(city)}
+                                        className="searchButton searchIcon"
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={faMagnifyingGlass}
+                                        />
+                                    </button>
+                                    <button
+                                        onClick={handleReset}
+                                        className="searchButton resetIcon"
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={faArrowsRotate}
+                                        />
+                                    </button>
                                 </div>
-                            ))}
+                            </div>
                         </div>
-                    )}
-                </>
-            )}
-        </div>
+                        {isLoading && <div className="no-data">Loading...</div>}
+                        {!isLoading && users.length === 0 && (
+                            <div className="no-data">No users</div>
+                        )}
+                        {!isLoading && users.length > 0 && (
+                            <div className="data-container users">
+                                {users.map((user) => (
+                                    <div key={user._id} className="users-data">
+                                        <User user={user} />
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </>
+                )}
+            </div>
+        </>
     );
 };
 
