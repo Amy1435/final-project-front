@@ -167,7 +167,15 @@ const SingleCity = () => {
                                     <div key={post._id} className="city-post">
                                         <Link to={`/posts/${post._id}`}>
                                             <figure>
-                                                <img src={post.img} alt="" />
+                                                <img
+                                                    src={
+                                                        post.img.includes(
+                                                            `https://`
+                                                        )
+                                                            ? post.img
+                                                            : `https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png`
+                                                    }
+                                                />
                                             </figure>
                                             <span>{post.title}</span>
                                         </Link>

@@ -187,7 +187,9 @@ const UserSettings = () => {
                                 userPosts.map((post) => (
                                     <div key={post._id} className="data">
                                         <div className="title-post">
-                                            <h2>{post.title}</h2>
+                                            <Link to={`/posts/${post._id}`}>
+                                                <h2>{post.title}</h2>
+                                            </Link>
                                         </div>
                                         <div className="user-post">
                                             <span>{post.post}</span>

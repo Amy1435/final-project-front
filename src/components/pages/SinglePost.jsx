@@ -28,7 +28,7 @@ const SinglePost = () => {
         <div className="page posts">
             <>
                 <div className="title-text">
-                    <div>
+                    <div className="title">
                         <h1>{post.title}</h1>
                     </div>
                     {error && <div className="no-data">Server Error</div>}
@@ -41,7 +41,13 @@ const SinglePost = () => {
                     {!error && !isLoading && post && (
                         <div className="post">
                             <figure>
-                                <img src={post.img} alt="" />
+                                <img
+                                    src={
+                                        post.img.includes(`https://`)
+                                            ? post.img
+                                            : `https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png`
+                                    }
+                                />
                             </figure>
                             <div className="complite-post">
                                 <div className="post-title">

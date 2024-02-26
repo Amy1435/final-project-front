@@ -494,6 +494,13 @@ nav.sticky {
                 display: -webkit-box;
                 -webkit-line-clamp: 2;
                 -webkit-box-orient: vertical;
+                &:hover {
+                    color: #de2b52;
+                }
+
+                a {
+                    color: inherit;
+                }
             }
         }
         .post-container {
@@ -553,7 +560,12 @@ nav.sticky {
         form {
             display: flex;
             flex-direction: column;
-
+            div:not(.not-member) span {
+                &::after {
+                    content: "*";
+                    color: #de2b52;
+                }
+            }
             .data-input {
                 margin: 10px 0;
                 padding: 12px;
@@ -907,7 +919,10 @@ nav.sticky {
                 padding: 1rem 0rem;
                 li {
                     border: none;
-                    padding: none;
+                    padding: 0;
+                    a.active {
+                        border-bottom: 2px solid white;
+                    }
                 }
             }
         }
@@ -997,7 +1012,11 @@ nav.sticky {
 
     .title-text {
         min-width: 240px;
+        min-height: 12vh;
         height: auto;
+        .title {
+            font-size: 0.7rem;
+        }
     }
     nav .nav-icon {
         right: 9%;
@@ -1034,9 +1053,15 @@ nav.sticky {
         }
     }
     .user-data-container {
-        padding: 0rem 0rem 3rem 0rem;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        padding: 0rem 2rem 3rem 2rem;
         .user-data {
             padding: 0.5rem;
+        }
+        .user-data.posts {
+            .post-container {
+                align-items: center;
+            }
         }
     }
     //modal
@@ -1055,9 +1080,8 @@ nav.sticky {
 @media only screen and (max-width: 480px) {
     .data-container.posts {
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    }
-    .user-data-container {
-        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-        padding: 0rem 2rem 3rem 2rem;
+        .posts-data {
+            max-width: 320px;
+        }
     }
 }
