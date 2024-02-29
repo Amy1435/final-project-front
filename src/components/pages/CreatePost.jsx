@@ -7,8 +7,7 @@ import { useEffect } from "react";
 import CityModal from "../Modals/CityCreateModal";
 
 const CreatePost = () => {
-    const { user } = useContext(Context);
-
+    const { user, token } = useContext(Context);
     //to create the post
     const [title, setTitle] = useState("");
     const [img, setImg] = useState("");
@@ -42,13 +41,21 @@ const CreatePost = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         axios
-            .post(`${VITE_URL_API}/posts`, {
-                title: title,
-                city: selectedCity,
-                img: img,
-                post: post,
-                user: user._id,
-            })
+            .post(
+                `${VITE_URL_API}/posts`,
+                {
+                    title: title,
+                    city: selectedCity,
+                    img: img,
+                    post: post,
+                    user: user._id,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            )
             .then(() => {
                 setSuccefullMsg(
                     "Your experience is being shared with other travelers. Thanks!"

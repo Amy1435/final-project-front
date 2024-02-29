@@ -23,8 +23,11 @@ const LogIn = () => {
                     password: password,
                 })
                 .then((res) => {
-                    const user = res.data;
-                    dispatch({ type: "LOGIN", payload: user });
+                    const user = res.data.user;
+                    const token = res.data.token;
+                    console.log(`user` + user);
+                    console.log(`token` + token);
+                    dispatch({ type: "LOGIN", payload: { user, token } });
                     navigate("/posts");
                 })
                 .catch((error) => {

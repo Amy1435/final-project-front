@@ -1,9 +1,9 @@
 const Reducer = (state, action) => {
     switch (action.type) {
         case "LOGIN":
-            return { user: action.payload };
+            return { user: action.payload.user, token: action.payload.token };
         case "LOGOUT":
-            return { user: null };
+            return { user: null, token: null };
         case "UPDATE_USER":
             return {
                 ...state,

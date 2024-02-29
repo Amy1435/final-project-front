@@ -26,36 +26,42 @@ const UserSettings = () => {
     //post to edit or eliminate
     const [userPosts, setUserPosts] = useState([]);
     const [selectedPost, setSelectedPost] = useState(null);
-    const id = user._id;
+    const id = user?._id;
 
+    console.log(`fuori` + id);
     //dati user
     useEffect(() => {
-        axios
-            .get(`${VITE_URL_API}/users/${id}`)
-            .then((res) => {
-                setIsLoading(false);
-                setUserData(res.data);
-            })
-            .catch((error) => {
-                setIsLoading(false);
-                console.error(error);
-                setError(true);
-            });
+        if (id) {
+            console.log(`dentro` + id);
+            axios
+                .get(`${VITE_URL_API}/users/${id}`)
+                .then((res) => {
+                    setIsLoading(false);
+                    setUserData(res.data);
+                })
+                .catch((error) => {
+                    setIsLoading(false);
+                    console.error(error);
+                    setError(true);
+                });
+        }
     }, [id]);
 
     //get user posts
     useEffect(() => {
-        axios
-            .get(`${VITE_URL_API}/posts?user=${id}`)
-            .then((res) => {
-                setIsLoading(false);
-                setUserPosts(res.data);
-            })
-            .catch((error) => {
-                setIsLoading(false);
-                console.error(error);
-                setError(true);
-            });
+        if (id) {
+            axios
+                .get(`${VITE_URL_API}/posts?user=${id}`)
+                .then((res) => {
+                    setIsLoading(false);
+                    setUserPosts(res.data);
+                })
+                .catch((error) => {
+                    setIsLoading(false);
+                    console.error(error);
+                    setError(true);
+                });
+        }
     }, [id]);
 
     //open modal to edit the user
@@ -113,7 +119,7 @@ const UserSettings = () => {
                                     <figure>
                                         <img
                                             src={
-                                                user.profile_img.includes(
+                                                userData.profile_img.includes(
                                                     `https://`
                                                 )
                                                     ? user.profile_img

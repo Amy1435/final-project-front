@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Context } from "../../context/UserContext";
 
 const UserModalDelete = ({ modalClose, userData }) => {
+    const { token } = useContext(Context);
     const [success, setSuccess] = useState("");
     const [error, setError] = useState("");
     //loading disable btn
@@ -19,7 +20,11 @@ const UserModalDelete = ({ modalClose, userData }) => {
         e.preventDefault();
         setIsLoading(true);
         axios
-            .delete(`${VITE_URL_API}/users/${id}`)
+            .delete(`${VITE_URL_API}/users/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
             .then(() => {
                 setSuccess("User deleted");
                 dispatch({ type: "LOGOUT" });

@@ -11,7 +11,6 @@ import {
 
 const Posts = () => {
     const { user } = useContext(Context);
-
     const [posts, setPosts] = useState([]);
     const [error, setError] = useState("");
     //Loading

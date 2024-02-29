@@ -5,6 +5,7 @@ import { Context } from "../../context/UserContext";
 const { VITE_URL_API } = import.meta.env;
 
 const UserModal = ({ modalClose, userData, setUserData }) => {
+    const { token } = useContext(Context);
     const [success, setSuccess] = useState("");
     const [error, setError] = useState("");
     //loading disable btn
@@ -57,15 +58,23 @@ const UserModal = ({ modalClose, userData, setUserData }) => {
         e.preventDefault();
         setIsLoading(true);
         axios
-            .patch(`${VITE_URL_API}/users/${id}`, {
-                username: formState.username,
-                city: selectedCity,
-                profile_img: formState.profile_img,
-                age: formState.age,
-                bio: formState.bio,
-                password: formState.password,
-                email: formState.email,
-            })
+            .patch(
+                `${VITE_URL_API}/users/${id}`,
+                {
+                    username: formState.username,
+                    city: selectedCity,
+                    profile_img: formState.profile_img,
+                    age: formState.age,
+                    bio: formState.bio,
+                    password: formState.password,
+                    email: formState.email,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            )
             .then((res) => {
                 setSuccess("Update successful");
                 setUserData(res.data);

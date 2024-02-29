@@ -60,6 +60,7 @@ const SingleCity = () => {
             .get(`${VITE_URL_API}/users?city=${id}`)
             .then((res) => {
                 setIsLoading(false);
+                console.log(res.data);
                 //filter post if logged
                 if (user) {
                     const filterPosts = res.data.filter(
@@ -201,8 +202,13 @@ const SingleCity = () => {
                                             <Link to={`/users/${user._id}`}>
                                                 <figure>
                                                     <img
-                                                        src={user.profile_img}
-                                                        alt=""
+                                                        src={
+                                                            user.profile_img.includes(
+                                                                `https://`
+                                                            )
+                                                                ? user.profile_img
+                                                                : `https://upload.wikimedia.org/wikipedia/commons/a/a3/Image-not-found.png`
+                                                        }
                                                     />
                                                 </figure>
                                                 <span> {user.username}</span>

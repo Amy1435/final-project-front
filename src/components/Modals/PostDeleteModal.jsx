@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
+import { Context } from "../../context/UserContext";
 const { VITE_URL_API } = import.meta.env;
 
 const PostModalDelete = ({ modalClose, postId, setUserPosts }) => {
+    const { token } = useContext(Context);
     const [success, setSuccess] = useState("");
     const [error, setError] = useState("");
     //loading disable btn
@@ -12,7 +14,11 @@ const PostModalDelete = ({ modalClose, postId, setUserPosts }) => {
         e.preventDefault();
         setIsLoading(true);
         axios
-            .delete(`${VITE_URL_API}/posts/${postId}`)
+            .delete(`${VITE_URL_API}/posts/${postId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
             .then(() => {
                 setSuccess("Post Deleted");
                 setUserPosts((prevUserPosts) =>

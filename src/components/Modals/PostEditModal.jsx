@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
+import { Context } from "../../context/UserContext";
 const { VITE_URL_API } = import.meta.env;
 
 const PostModal = ({ modalClose, postData, setUserPosts }) => {
+    const { token } = useContext(Context);
     const [success, setSuccess] = useState("");
     const [error, setError] = useState("");
     //loading disable btn
@@ -29,7 +31,11 @@ const PostModal = ({ modalClose, postData, setUserPosts }) => {
         e.preventDefault();
         setIsLoading(true);
         axios
-            .patch(`${VITE_URL_API}/posts/${id}`, formState)
+            .patch(`${VITE_URL_API}/posts/${id}`, formState, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
             .then(() => {
                 setSuccess("Update successful");
                 setUserPosts((prevPosts) =>
